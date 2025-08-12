@@ -72,6 +72,7 @@ export const httpService = {
       const response = await superagent.get(url).set('Content-Type', 'application/json')
       return response.body
     } catch (err) {
+      console.error(err)
       return null
     }
   },
@@ -82,6 +83,7 @@ export const httpService = {
       const response = await superagent.get(url).set('Content-Type', 'application/json')
       return response.body
     } catch (err) {
+      console.error(err)
       return null
     }
   },

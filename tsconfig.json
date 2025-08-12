@@ -21,7 +21,10 @@
     "dist",
     "cypress.config.ts",
     "esbuild",
-    "eslint.config.mjs"
+    "eslint.config.mjs",
+    "server/routes/index.test.ts_",
+    "server/data/hmppsAuditClient.test.ts_",
+    "server/middleware/authorisationMiddleware.test.ts_"
   ],
   "include": ["**/*.js", "**/*.ts"]
 }
