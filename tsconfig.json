@@ -23,5 +23,13 @@
     "esbuild",
     "eslint.config.mjs"
   ],
-  "include": ["**/*.js", "**/*.ts"]
+  "include": [
+    "**/*.js",
+    "**/*.ts",
+    "server/routes/index.test.ts_",
+    "server/data/exampleApiClient.test.ts_",
+    "server/data/hmppsAuditClient.test.ts_",
+    "integration_tests/e2e/example.cy.ts_",
+    "integration_tests/e2e/health.cy.ts_"
+  ]
 }
