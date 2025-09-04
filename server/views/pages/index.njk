@@ -6,6 +6,13 @@
 {% block content %}
 
   <h1>This site is under construction...</h1>
+  <h2>Upload a file</h2>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      <input type="file" name="file" />
+      <button type="submit">Upload</button>
+    </form>
+
   <p>Please check back later when there is content to view.</p>
   <p>
     <a class="govuk-link" href="/persons">Persons</a>
