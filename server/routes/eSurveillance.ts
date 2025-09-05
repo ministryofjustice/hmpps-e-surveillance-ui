@@ -37,5 +37,11 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
     }
   })
 
+  router.post('/upload', (req, res) => {
+      return res.render('pages/view-data', { displayBanner: true } )
+  });
+
+
+
   return router
 }

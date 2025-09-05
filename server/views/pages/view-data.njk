@@ -1,0 +1,42 @@
+{% extends "../partials/layout.njk" %}
+
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1>HMPPS E Surveillance</h1>
+
+    {% set html %}
+      <h3 class="govuk-notification-banner__heading">
+       Success
+      </h3>
+      <p class="govuk-body">File uploaded successfully.</p>
+    {% endset %}
+
+      {% if displayBanner %}
+        {{ govukNotificationBanner({
+          html: html,
+          type: "success"
+        }) }}
+      {% endif %}
+      <p>You can view the uploaded data now.</p>
+      <p>
+        <a class="govuk-link" href="/persons">Persons</a>
+      </p>
+      <p>
+        <a class="govuk-link" href="/notifications">Notifications</a>
+      </p>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
