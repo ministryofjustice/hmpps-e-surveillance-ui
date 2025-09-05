@@ -12,4 +12,9 @@ export default class ESurveillanceService {
     const response = await this.apiClient.getNotifications(queryParams)
     return response?.content ?? []
   }
+
+  async getUploadUrl(filename: string): Promise<string> {
+    const response = await this.apiClient.getUploadUrl(filename)
+    return response.toString()
+  }
 }

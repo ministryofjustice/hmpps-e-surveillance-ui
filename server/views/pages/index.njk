@@ -1,41 +1,62 @@
 {% extends "../partials/layout.njk" %}
+
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 
 {% set pageTitle = applicationName + " - Home" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1>HMPPS E Surveillance</h1>
-    <h2 id="upload" class="govuk-heading-m">Upload file</h2>
-        <form action="/upload" method="post" enctype="multipart/form-data">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1>HMPPS E Surveillance</h1>
 
-          {% include "partials/csrf-hidden-input.html" %}
-          <div>
-            <div>
-              <label id="label" class="govuk-label" for="document">Upload file in csv format:</label>
-              <input id="document" type="file" name="document" class="govuk-file-upload" required/>
-            </div>
-            <div>
-              <p id='document-name' class="govuk-!-width-three-quarters"></p>
-              <p><a id="remove-file-upload" class="remove-upload" href="{{ URL }}">remove</a></p>
-            </div>
-          </div>
+      <h2 id="upload" class="govuk-heading-m">Upload file</h2>
 
-          <br>
+      {% set hasError = errorMessages.document %}
+      {% if errorMessages and errorMessages.document %}
+        {% set errorParams = {
+          text: errorMessages.document
+        } %}
+      {% else %}
+        {% set errorParams = null %}
+      {% endif %}
 
+      <form action="/view-data" method="post" enctype="multipart/form-data">
+        {% include "partials/csrf-hidden-input.html" %}
 
-          {{ govukButton({
-            text: "Upload",
-            preventDoubleClick: true,
-            attributes: {
-              "data-cy": "submit"
-            }
+        <div>
+          {{ govukFileUpload({
+            id: "document",
+            name: "document",
+            label: {
+              text: "Upload a file in CSV format"
+            },
+            errorMessage: errorParams
           }) }}
-        </form>
+        </div>
+
+        <div>
+          <p id="document-name" class="govuk-!-width-three-quarters"></p>
+          <p>
+            <a id="remove-file-upload" class="remove-upload" href="{{ URL }}">
+              Remove file
+            </a>
+          </p>
+        </div>
+
+        <br>
+
+        {{ govukButton({
+          text: "Upload",
+          preventDoubleClick: true,
+          attributes: {
+            "data-cy": "submit"
+          }
+        }) }}
+      </form>
+    </div>
   </div>
-</div>
 {% endblock %}
