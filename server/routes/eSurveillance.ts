@@ -24,7 +24,7 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
 
       const persons = await eSurveillanceService.getPersons(normaliseQuery(req.query))
       const viewModel = personsToTable(persons)
-      return res.render('pages/tabular_data', viewModel)
+      return res.render('pages/person_tabular_data', viewModel)
     } catch (error) {
       return next(error)
     }
@@ -39,7 +39,7 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
 
       const notifications = await eSurveillanceService.getNotifications(normaliseQuery(req.query))
       const viewModel = notificationsToTable(notifications)
-      return res.render('pages/tabular_data', viewModel)
+      return res.render('pages/notification_tabular_data', viewModel)
     } catch (error) {
       return next(error)
     }

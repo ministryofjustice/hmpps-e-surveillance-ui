@@ -1,10 +1,11 @@
 {% extends "../partials/layout.njk" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-{% set pageTitle = applicationName + " - " + pageTitle %}
+{% set pageTitle = applicationName + " - " + "Persons record" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
+  <h1>Persons record</h1>
     {% if rows and rows | length > 0 %}
         {{ govukTable({
       caption: caption,
@@ -14,6 +15,6 @@
       rows: rows
     }) }}
     {% else %}
-        <p>{{ notFoundMessage }}</p>
+        <p class="govuk-body">No person records available yet.</p>
     {% endif %}
 {% endblock %}
