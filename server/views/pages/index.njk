@@ -33,7 +33,6 @@
       <h1>File upload</h1>
 
       <form action="/view-data" method="post" enctype="multipart/form-data">
-        {% include "partials/csrf-hidden-input.html" %}
 
         <div>
           {{ govukFileUpload({
