@@ -19,7 +19,12 @@
         } %}
       {{ govukErrorSummary({
         titleText: "There is a problem",
-        errorList: [errorMessages.document]
+        errorList: [
+          {
+            text: errorMessages.document,
+            href: "#document"
+          }
+        ]
       }) }}
       {% else %}
         {% set errorParams = null %}
