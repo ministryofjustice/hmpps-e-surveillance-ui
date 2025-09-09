@@ -12,17 +12,17 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      {% set hasError = errorMessages.document %}
-      {% if errorMessages and errorMessages.document %}
+      {% set hasError = errorMessages.personFile %}
+      {% if errorMessages and errorMessages.personFile %}
         {% set errorParams = {
-          text: errorMessages.document
+          text: errorMessages.personFile
         } %}
       {{ govukErrorSummary({
         titleText: "There is a problem",
         errorList: [
           {
-            text: errorMessages.document,
-            href: "#document"
+            text: errorMessages.personFile,
+            href: "#person-upload"
           }
         ]
       }) }}
@@ -32,27 +32,26 @@
 
       <h1>File upload</h1>
 
-      <form action="/view-data" method="post" enctype="multipart/form-data">
+      <form action="/upload" method="post" enctype="multipart/form-data">
 
         <div>
           {{ govukFileUpload({
-            id: "document",
-            name: "document",
+            id: "person-upload",
+            name: "personFile",
             label: {
-              text: "Upload a file in CSV format"
+              text: "Upload Person Data"
             },
             errorMessage: errorParams
           }) }}
-        </div>
 
-        <div>
-          <p id="document-name" class="govuk-!-width-three-quarters"></p>
-            <a id="remove-file-upload" class="remove-upload" href="{{ URL }}">
-              Remove file
-            </a>
-          </p>
+          {{ govukFileUpload({
+            id: "event-upload",
+            name: "eventFile",
+            label: {
+              text: "Upload Event Data"
+            }
+          }) }}
         </div>
-
         <br>
 
         {{ govukButton({

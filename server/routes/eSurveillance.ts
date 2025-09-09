@@ -1,15 +1,13 @@
-import { Router, Request } from 'express'
+/* eslint-disable no-await-in-loop */
+import { Router } from 'express'
 import multer from 'multer'
-import axios from 'axios'
+import superagent from 'superagent'
 import fs from 'fs'
+import path from 'path'
 import { Services } from '../services'
 import { Page } from '../services/auditService'
 import { personsToTable, notificationsToTable } from '../utils/tabularData'
 import normaliseQuery from '../utils/normaliseQuery'
-
-interface MulterRequest extends Request {
-  file: Express.Multer.File
-}
 
 export default function eSurvRoutes({ auditService, eSurveillanceService }: Services): Router {
   const router = Router()
@@ -49,39 +47,52 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
     res.render('pages/view-data', { displayBanner: false })
   })
 
-  router.post('/view-data', upload.single('document'), async (req: MulterRequest, res) => {
-    if (!req.file) {
-      return res.render('pages/index', {
-        errorMessages: {
-          document: 'File is required',
-        },
-      })
-    }
-    const filePath = req.file.path
-    const filename = req.file.originalname
-    const fileType = req.file.mimetype
-    try {
-      const presignRes = await eSurveillanceService.getUploadUrl(filename)
-      const presignedUrl = presignRes
+  router.post(
+    '/upload',
+    upload.fields([
+      { name: 'personFile', maxCount: 1 },
+      { name: 'eventFile', maxCount: 1 },
+    ]),
+    async (req, res, next) => {
+      try {
+        const now = new Date()
+        const timestamp = now.toISOString().replace(/[:.]/g, '-')
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+        const files = req.files as any
+        const uploads = []
 
-      const fileStream = fs.createReadStream(filePath)
-      const uploadRes = await axios.put(presignedUrl, fileStream, {
-        headers: {
-          'Content-Type': fileType,
-        },
-        maxBodyLength: Infinity,
-      })
+        if (!files.personFile || !files.eventFile) {
+          return res.render('pages/index', {
+            errorMessages: {
+              personFile: 'At least one file is required',
+            },
+          })
+        }
 
-      fs.unlinkSync(filePath)
+        if (files.personFile) {
+          const file = files.personFile[0]
+          const newName = `person_${timestamp}${path.extname(file.originalname)}`
+          uploads.push({ file, newName })
+        }
 
-      if (uploadRes.status === 200) {
+        if (files.eventFile) {
+          const file = files.eventFile[0]
+          const newName = `event_${timestamp}${path.extname(file.originalname)}`
+          uploads.push({ file, newName })
+        }
+
+        for (const { file, newName } of uploads) {
+          const signedUrl = await eSurveillanceService.getUploadUrl(newName)
+
+          await superagent.put(signedUrl).set('Content-Type', file.mimetype).send(fs.readFileSync(file.path))
+        }
+
         return res.render('pages/view-data', { displayBanner: true })
+      } catch (err) {
+        return next(err)
       }
-      return res.render('pages/error', { message: 'Failed to upload file', status: '500', stack: '' })
-    } catch (err) {
-      return res.render('pages/error', { message: 'Failed to upload file', status: '500', stack: err.message })
-    }
-  })
+    },
+  )
 
   return router
 }
