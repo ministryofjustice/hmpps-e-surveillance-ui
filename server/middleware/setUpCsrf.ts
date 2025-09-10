@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Router } from 'express'
+import { RequestHandler, Router } from 'express'
 import { csrfSync } from 'csrf-sync'
 
 const testMode = process.env.NODE_ENV === 'test'
@@ -19,7 +19,7 @@ export default function setUpCsrf(): Router {
       },
     })
 
-    router.use(csrfSynchronisedProtection)
+    router.use(csrfSynchronisedProtection as RequestHandler)
   }
 
   router.use((req, res, next) => {
