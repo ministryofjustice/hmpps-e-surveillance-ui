@@ -23,7 +23,7 @@ export default defineConfig({
         ...exampleApi,
       })
     },
-    baseUrl: 'http://localhost:3007',
+    baseUrl: 'http://localhost:3000',
     excludeSpecPattern: '**/!(*.cy).ts',
     specPattern: 'integration_tests/e2e/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: 'integration_tests/support/index.ts',
