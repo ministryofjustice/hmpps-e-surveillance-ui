@@ -1,17 +1,25 @@
+import { Request, Response, NextFunction, RequestHandler } from 'express'
+
 declare module 'csrf-sync' {
-  export interface CsrfSyncOptions {
-    getTokenFromRequest?: (req: any) => string | undefined
+  export interface CsrfRequest extends Request {
+    body?: { _csrf?: string }
+  }
+
+  export interface CsrfSyncOptions<Req extends Request = CsrfRequest> {
+    getTokenFromRequest?: (req: Req) => string | undefined
   }
 
   export interface CsrfSyncInstance {
-    generateToken: (req: Express.Request, res: Express.Response) => string
-    getTokenFromRequest: (req: Express.Request) => string | undefined
-    invalidTokenHandler: (req: Express.Request, res: Express.Response, next: Express.NextFunction) => void
-    validateToken: (req: Express.Request, res: Express.Response) => boolean
+    generateToken: (req: Request, res: Response) => string
+    getTokenFromRequest: (req: Request) => string | undefined
+    invalidTokenHandler: (req: Request, res: Response, next: NextFunction) => void
+    validateToken: (req: Request, res: Response) => boolean
   }
 
-  export function csrfSync(options?: CsrfSyncOptions): {
-    csrfSynchronisedProtection: (req: Express.Request, res: Express.Response, next: Express.NextFunction) => void
-    options: CsrfSyncOptions
+  export function csrfSync<Req extends Request = CsrfRequest>(
+    options?: CsrfSyncOptions<Req>,
+  ): {
+    csrfSynchronisedProtection: RequestHandler
+    options: CsrfSyncOptions<Req>
   }
 }
