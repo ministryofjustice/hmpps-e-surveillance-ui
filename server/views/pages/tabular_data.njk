@@ -1,20 +1,59 @@
 {% extends "../partials/layout.njk" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{%- from "moj/components/search/macro.njk" import mojSearch -%}
+{%- from "moj/components/pagination/macro.njk" import mojPagination -%}
 
 {% set pageTitle = applicationName + " - " + pageTitle %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
+
+    {{ mojSearch({
+  action: "#",
+  method: "post",
+  input: {
+    id: "search",
+    name: "search"
+  },
+ 
+  button: {
+    text: "Search"
+  }
+}) }}
     {% if rows and rows | length > 0 %}
         {{ govukTable({
       caption: caption,
       captionClasses: "govuk-table__caption--m",
+      attributes: {
+        "data-module": "moj-sortable-table"
+      },
       firstCellIsHeader: true,
       head: headers,
       rows: rows
     }) }}
+        {% if paginationData %}
+            {{ mojPagination(paginationData) }}
+        {% endif %}
     {% else %}
         <p>
             {{ notFoundMessage }}</p>
     {% endif %}
+
+    {{ mojPagination({
+    "items": [
+    { "text": "1", "href": "/persons?page=0&size=10" },
+    { "text": "2", "href": "/persons?page=1&size=10", "selected": true },
+    { "text": "3", "href": "/persons?page=2&size=10" },
+    { "text": "4", "href": "/persons?page=3&size=10" },
+    { "text": "5", "href": "/persons?page=4&size=10" }
+  ],
+  "results": {
+    "count": 50,
+    "from": 11,
+    "to": 20,
+    "text": "results"
+  },
+  "previous": { "text": "Previous", "href": "/persons?page=0&size=10" },
+  "next": { "text": "Next", "href": "/persons?page=2&size=10" }
+}) }}
 {% endblock %}

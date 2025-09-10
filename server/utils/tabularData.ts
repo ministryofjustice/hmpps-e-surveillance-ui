@@ -1,6 +1,7 @@
 import { Notification, Person } from '../data/eSurveillanceClient'
 
 export type TableData = {
+  attributes: object
   caption: string
   title: string
   headers: { text: string }[]
@@ -34,7 +35,16 @@ export function personsToTable(persons: Person[]): TableData {
     { text: p.toy },
   ])
 
-  return { caption: title, title, headers, rows, notFoundMessage: 'Nothing yet' }
+  return {
+    attributes: {
+      'data-module': 'moj-sortable-table',
+    },
+    caption: title,
+    title,
+    headers,
+    rows,
+    notFoundMessage: 'Nothing yet',
+  }
 }
 
 export function notificationsToTable(notifications: Notification[]): TableData {
@@ -48,5 +58,14 @@ export function notificationsToTable(notifications: Notification[]): TableData {
     { text: new Date(n.timestamp).toLocaleString() },
   ])
 
-  return { caption: title, title, headers, rows, notFoundMessage: 'Nothing yet' }
+  return {
+    attributes: {
+      'data-module': 'moj-sortable-table',
+    },
+    caption: title,
+    title,
+    headers,
+    rows,
+    notFoundMessage: 'Nothing yet',
+  }
 }
