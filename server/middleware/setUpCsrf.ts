@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Router } from 'express'
 import { csrfSync } from 'csrf-sync'
 

@@ -1,69 +1,22 @@
 {% extends "../partials/layout.njk" %}
 
-{% from "govuk/components/details/macro.njk" import govukDetails %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-
-{% set pageTitle = applicationName + " - File upload" %}
+{% set pageTitle = applicationName + " - Monitor Notifications & Persons" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      {% set hasError = errorMessages.personFile %}
-      {% if errorMessages and errorMessages.personFile %}
-        {% set errorParams = {
-          text: errorMessages.personFile
-        } %}
-      {{ govukErrorSummary({
-        titleText: "There is a problem",
-        errorList: [
-          {
-            text: errorMessages.personFile,
-            href: "#person-upload"
-          }
-        ]
-      }) }}
-      {% else %}
-        {% set errorParams = null %}
-      {% endif %}
+      <h1>Monitor Notifications & Persons</h1>
 
-      <h1 class="govuk-heading-l">File upload</h1>
-
-      <form action="/upload" method="post" enctype="multipart/form-data">
-
-        <div>
-          {{ govukFileUpload({
-            id: "person-upload",
-            name: "personFile",
-            label: {
-              text: "Upload Person Data"
-            },
-            errorMessage: errorParams
-          }) }}
-
-          {{ govukFileUpload({
-            id: "event-upload",
-            name: "eventFile",
-            label: {
-              text: "Upload Event Data"
-            }
-          }) }}
-        </div>
-        <br>
-
-        {{ govukButton({
-          text: "Upload",
-          preventDoubleClick: true,
-          attributes: {
-            "data-cy": "submit"
-          }
-        }) }}
-      </form>
-      <p class="govuk-body">
-        View <a href="/view-data" class="govuk-link">person records or generated notifications</a>.
+      <p>Quickly view, upload, and track surveillance information.</p>
+      <p>
+        <a class="govuk-link" href="/persons">Persons</a>
+      </p>
+      <p>
+        <a class="govuk-link" href="/notifications">Notifications</a>
+      </p>
+      <p>
+        <a class="govuk-link" href="/upload">Upload Data</a>
       </p>
     </div>
   </div>

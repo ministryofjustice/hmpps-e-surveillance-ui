@@ -1,0 +1,86 @@
+{% extends "../partials/layout.njk" %}
+
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% set pageTitle = applicationName + " - File upload" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% set html %}
+      <h3 class="govuk-notification-banner__heading">
+        Success
+      </h3>
+      <p class="govuk-body">File uploaded successfully.</p>
+      <p class="govuk-body">
+        View <a href="/persons" class="govuk-link">person records</a> or  <a href="/notifications" class="govuk-link">generated notifications</a>.
+      </p>
+      {% endset %}
+
+      {% if displayBanner %}
+        {{ govukNotificationBanner({
+          html: html,
+          type: "success"
+        }) }}
+      {% endif %}
+
+      {% set hasError = errorMessages.personFile %}
+      {% if errorMessages and errorMessages.personFile %}
+        {% set errorParams = {
+          text: errorMessages.personFile
+        } %}
+        {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [
+          {
+            text: errorMessages.personFile,
+            href: "#person-upload"
+          }
+        ]
+      }) }}
+      {% else %}
+        {% set errorParams = null %}
+      {% endif %}
+
+      <h1>File upload</h1>
+
+      <form method="post" enctype="multipart/form-data">
+
+        <div>
+          {{ govukFileUpload({
+            id: "person-upload",
+            name: "personFile",
+            label: {
+              text: "Upload Person Data"
+            },
+            errorMessage: errorParams
+          }) }}
+
+          {{ govukFileUpload({
+            id: "event-upload",
+            name: "eventFile",
+            label: {
+              text: "Upload Event Data"
+            }
+          }) }}
+        </div>
+        <br>
+
+        {{ govukButton({
+          text: "Upload",
+          preventDoubleClick: true,
+          attributes: {
+            "data-cy": "submit"
+          }
+        }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

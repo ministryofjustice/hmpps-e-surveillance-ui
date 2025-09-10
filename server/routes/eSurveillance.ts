@@ -43,8 +43,8 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
     }
   })
 
-  router.get('/view-data', async (req, res) => {
-    res.render('pages/view-data', { displayBanner: false })
+  router.get('/upload', async (req, res) => {
+    res.render('pages/upload', { displayBanner: false })
   })
 
   router.post(
@@ -57,12 +57,13 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
       try {
         const now = new Date()
         const timestamp = now.toISOString().replace(/[:.]/g, '-')
-        /* eslint-disable @typescript-eslint/no-explicit-any */
-        const files = req.files as any
+        const files = req.files
         const uploads = []
-
-        if (!files.personFile || !files.eventFile) {
-          return res.render('pages/index', {
+        if (
+          (!files.personFile || files.personFile.length === 0) &&
+          (!files.eventFile || files.eventFile.length === 0)
+        ) {
+          return res.render('pages/upload', {
             errorMessages: {
               personFile: 'At least one file is required',
             },
@@ -87,7 +88,7 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
           await superagent.put(signedUrl).set('Content-Type', file.mimetype).send(fs.readFileSync(file.path))
         }
 
-        return res.render('pages/view-data', { displayBanner: true })
+        return res.render('pages/upload', { displayBanner: true })
       } catch (err) {
         return next(err)
       }

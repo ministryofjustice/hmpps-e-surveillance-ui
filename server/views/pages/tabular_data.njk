@@ -15,6 +15,7 @@
       rows: rows
     }) }}
     {% else %}
-        <p class="govuk-body">{{ notFoundMessage }}</p>
+        <p class="govuk-body">{{ notFoundMessage }} Please <a class="govuk-link" href="/upload" >upload </a>
+        </p>
     {% endif %}
 {% endblock %}
