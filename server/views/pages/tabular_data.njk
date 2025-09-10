@@ -5,7 +5,7 @@
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
-<h1>{{ header }}</h1>
+<h1 class="govuk-heading-l">{{ header }}</h1>
     {% if rows and rows | length > 0 %}
         {{ govukTable({
       caption: caption,
