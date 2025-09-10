@@ -1,4 +1,9 @@
+/* eslint-disable no-await-in-loop */
 import { Router } from 'express'
+import multer from 'multer'
+import superagent from 'superagent'
+import fs from 'fs'
+import path from 'path'
 import { Services } from '../services'
 import { Page } from '../services/auditService'
 import { personsToTable, notificationsToTable } from '../utils/tabularData'
@@ -6,6 +11,7 @@ import normaliseQuery from '../utils/normaliseQuery'
 
 export default function eSurvRoutes({ auditService, eSurveillanceService }: Services): Router {
   const router = Router()
+  const upload = multer({ dest: 'temp/' })
 
   router.get('/persons', async (req, res, next) => {
     try {
@@ -36,6 +42,58 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
       return next(error)
     }
   })
+
+  router.get('/upload', async (req, res) => {
+    res.render('pages/upload', { displayBanner: false })
+  })
+
+  router.post(
+    '/upload',
+    upload.fields([
+      { name: 'personFile', maxCount: 1 },
+      { name: 'eventFile', maxCount: 1 },
+    ]),
+    async (req, res, next) => {
+      try {
+        const now = new Date()
+        const timestamp = now.toISOString().replace(/[:.]/g, '-')
+        const files = req.files
+        const uploads = []
+        if (
+          (!files.personFile || files.personFile.length === 0) &&
+          (!files.eventFile || files.eventFile.length === 0)
+        ) {
+          return res.render('pages/upload', {
+            errorMessages: {
+              personFile: 'At least one file is required',
+            },
+          })
+        }
+
+        if (files.personFile) {
+          const file = files.personFile[0]
+          const newName = `person_${timestamp}${path.extname(file.originalname)}`
+          uploads.push({ file, newName })
+        }
+
+        if (files.eventFile) {
+          const file = files.eventFile[0]
+          const newName = `event_${timestamp}${path.extname(file.originalname)}`
+          uploads.push({ file, newName })
+        }
+
+        for (const { file, newName } of uploads) {
+          const signedUrl = await eSurveillanceService.getUploadUrl(newName)
+
+          await superagent.put(signedUrl).set('Content-Type', file.mimetype).send(fs.readFileSync(file.path))
+        }
+
+        return res.render('pages/upload', { displayBanner: true })
+      } catch (err) {
+        return next(err)
+      }
+    },
+  )
 
   return router
 }

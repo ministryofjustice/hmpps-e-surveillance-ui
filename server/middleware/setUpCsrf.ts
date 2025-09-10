@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Router } from 'express'
 import { csrfSync } from 'csrf-sync'
 
@@ -12,7 +13,7 @@ export default function setUpCsrf(): Router {
       csrfSynchronisedProtection, // This is the default CSRF protection middleware.
     } = csrfSync({
       // By default, csrf-sync uses x-csrf-token header, but we use the token in forms and send it in the request body, so change getTokenFromRequest so it grabs from there
-      getTokenFromRequest: req => {
+      getTokenFromRequest: (req: Request & { body?: { _csrf?: string } }) => {
         // eslint-disable-next-line no-underscore-dangle
         return req.body?._csrf
       },

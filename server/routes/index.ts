@@ -12,5 +12,9 @@ export default function routes({ auditService }: Services): Router {
     return res.render('pages/index')
   })
 
+  router.get('/upload-file', async (req, res, next) => {
+    return res.render('pages/index')
+  })
+
   return router
 }

@@ -6,6 +6,7 @@ export type TableData = {
   headers: { text: string }[]
   rows: { text?: string | number | boolean; html?: string }[][]
   notFoundMessage: string
+  header: string
 }
 
 export function personsToTable(persons: Person[]): TableData {
@@ -34,7 +35,7 @@ export function personsToTable(persons: Person[]): TableData {
     { text: p.toy },
   ])
 
-  return { caption: title, title, headers, rows, notFoundMessage: 'Nothing yet' }
+  return { caption: title, title, headers, rows, notFoundMessage: 'No person records found.', header: 'Person records' }
 }
 
 export function notificationsToTable(notifications: Notification[]): TableData {
@@ -48,5 +49,12 @@ export function notificationsToTable(notifications: Notification[]): TableData {
     { text: new Date(n.timestamp).toLocaleString() },
   ])
 
-  return { caption: title, title, headers, rows, notFoundMessage: 'Nothing yet' }
+  return {
+    caption: title,
+    title,
+    headers,
+    rows,
+    notFoundMessage: 'No notification generated yet.',
+    header: 'Generated notifications',
+  }
 }

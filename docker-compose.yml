@@ -19,12 +19,12 @@ services:
       - hmpps
     container_name: hmpps-template-kotlin
     ports:
-      - "8080:8080"
+      - "8081:8081"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health/ping"]
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health/ping"]
     environment:
-      - HMPPS_AUTH_URL=http://hmpps-auth:8080/auth
-      - EXAMPLE_API_URL=http://localhost:8080
+      - HMPPS_AUTH_URL=http://hmpps-auth:8081/auth
+      - EXAMPLE_API_URL=http://localhost:8081
 
   app:
     build:
