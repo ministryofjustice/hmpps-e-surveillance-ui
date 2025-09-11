@@ -59,6 +59,8 @@ COPY --from=build --chown=appuser:appgroup \
 COPY --from=build --chown=appuser:appgroup \
         /app/node_modules ./node_modules
 
+RUN mkdir temp && chown appuser:appgroup temp && chmod 775 temp
+
 EXPOSE 3000
 ENV NODE_ENV='production'
 USER 2000
