@@ -21,3 +21,19 @@ export const initialiseName = (fullName?: string): string | null => {
   const array = fullName.split(' ')
   return `${array[0][0]}. ${array.reverse()[0]}`
 }
+
+export function generateReadMoreHtml(message: string, id: string | number): string {
+  const refindMessage = message ? message.replaceAll('\n\n', '<br/>') : ''
+  const preview = refindMessage.slice(0, 80)
+  const rest = refindMessage.length > 80 ? refindMessage.slice(80) : ''
+
+  return `
+   <p class="govuk-body">
+     ${preview}
+     <span id="dots-item-${id}" class="dots">${rest ? '...' : ''}</span>
+     ${rest ? `<span id="more-item-${id}" class="read-more-extra">${rest}</span>` : ''}
+
+   ${rest ? `<a href="#" class="govuk-link read-more-toggle" data-id="item-${id}">Read more</a>` : ''}
+     </p>
+ `
+}

@@ -1,16 +1,23 @@
-import ESurveillanceApiClient, { PersonsResponse, NotificationsResponse, QueryParam } from '../data/eSurveillanceClient'
+import ESurveillanceApiClient, {
+  ApiResponse,
+  PersonsResponse,
+  NotificationsResponse,
+  QueryParam,
+  Notification,
+  Person,
+} from '../data/eSurveillanceClient'
 
 export default class ESurveillanceService {
   constructor(private readonly apiClient: ESurveillanceApiClient) {}
 
-  async getPersons(queryParams?: Record<string, QueryParam>): Promise<PersonsResponse['content']> {
+  async getPersons(queryParams?: Record<string, QueryParam>): Promise<ApiResponse<Person>> {
     const response = await this.apiClient.getPersons(queryParams)
-    return response?.content ?? []
+    return response
   }
 
-  async getNotifications(queryParams?: Record<string, QueryParam>): Promise<NotificationsResponse['content']> {
+  async getNotifications(queryParams?: Record<string, QueryParam>): Promise<ApiResponse<Notification>> {
     const response = await this.apiClient.getNotifications(queryParams)
-    return response?.content ?? []
+    return response
   }
 
   async getUploadUrl(filename: string): Promise<string> {

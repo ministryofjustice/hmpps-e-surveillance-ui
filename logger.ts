@@ -4,6 +4,10 @@ import config from './server/config'
 
 const formatOut = bunyanFormat({ outputMode: 'short', color: !config.production })
 
-const logger = bunyan.createLogger({ name: 'HMPPS E Surveillance Ui', stream: formatOut, level: 'debug' })
+const logger = bunyan.createLogger({
+  name: 'EM notifications for people on probation',
+  stream: formatOut,
+  level: 'debug',
+})
 
 export default logger

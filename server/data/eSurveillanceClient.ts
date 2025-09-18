@@ -6,6 +6,7 @@ import logger from '../../logger'
 export type Notification = {
   id: number
   personId: string
+  personName: string
   violation: string
   timestamp: string
   message: string
@@ -74,12 +75,15 @@ export default class ESurveillanceApiClient extends RestClient {
   }
 
   async getPersons(queryParams?: Record<string, QueryParam>): Promise<PersonsResponse> {
-    return this.get<PersonsResponse>({ path: '/persons', query: this.buildQueryParams(queryParams) }, asSystem())
+    return this.get<PersonsResponse>(
+      { path: `/persons?${this.buildQueryParams(queryParams)}`, query: this.buildQueryParams(queryParams) },
+      asSystem(),
+    )
   }
 
   async getNotifications(queryParams?: Record<string, QueryParam>): Promise<NotificationsResponse> {
     return this.get<NotificationsResponse>(
-      { path: '/notifications', query: this.buildQueryParams(queryParams) },
+      { path: `/notifications?${this.buildQueryParams(queryParams)}`, query: this.buildQueryParams(queryParams) },
       asSystem(),
     )
   }

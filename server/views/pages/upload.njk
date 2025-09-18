@@ -11,6 +11,7 @@
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {% set html %}
@@ -19,7 +20,7 @@
       </h3>
       <p class="govuk-body">File uploaded successfully.</p>
       <p class="govuk-body">
-        View <a href="/persons" class="govuk-link">person records</a> or  <a href="/notifications" class="govuk-link">generated notifications</a>.
+        View <a href="/cases" class="govuk-link">case records</a> or  <a href="/notifications" class="govuk-link">generated notifications</a>.
       </p>
       {% endset %}
 
@@ -71,7 +72,6 @@
           }) }}
         </div>
         <br>
-
         {{ govukButton({
           text: "Upload",
           preventDoubleClick: true,
@@ -80,7 +80,6 @@
           }
         }) }}
       </form>
-
     </div>
   </div>
 {% endblock %}

@@ -1,0 +1,33 @@
+.read-more-extra {
+  display: none;
+
+  &.show {
+    display: inline;
+  }
+}
+
+.dots {
+  &.hidden {
+    display: none;
+  }
+}
+
+.read-more-toggle {
+  display: inline-block;
+  margin-top: 4px;
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+.inline-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.inline-container > :first-child {
+  flex: 1;
+}
+
