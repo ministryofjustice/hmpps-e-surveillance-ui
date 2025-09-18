@@ -28,12 +28,12 @@ export function generateReadMoreHtml(message: string, id: string | number): stri
   const rest = refindMessage.length > 80 ? refindMessage.slice(80) : ''
 
   return `
-   <p class="govuk-body">
+
      ${preview}
      <span id="dots-item-${id}" class="dots">${rest ? '...' : ''}</span>
      ${rest ? `<span id="more-item-${id}" class="read-more-extra">${rest}</span>` : ''}
 
-   ${rest ? `<a href="#" class="govuk-link read-more-toggle" data-id="item-${id}">Read more</a>` : ''}
-     </p>
+     ${rest ? `<a href="#" class="govuk-link read-more-toggle" data-id="item-${id}">Read more</a>` : ''}
+
  `
 }

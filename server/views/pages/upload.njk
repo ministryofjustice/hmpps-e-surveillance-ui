@@ -11,7 +11,6 @@
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {% set html %}
@@ -72,6 +71,7 @@
           }) }}
         </div>
         <br>
+
         {{ govukButton({
           text: "Upload",
           preventDoubleClick: true,
@@ -80,6 +80,7 @@
           }
         }) }}
       </form>
+
     </div>
   </div>
 {% endblock %}

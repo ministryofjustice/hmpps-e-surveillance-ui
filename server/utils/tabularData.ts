@@ -21,13 +21,13 @@ export function personsToTable(
 ): TableData {
   const title = 'Persons'
   const headers = [
-    { text: 'Name', attributes: { 'aria-sort': 'descending' } },
-    { text: 'CRN', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Device wearer ID', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Person ID', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Alias', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Last data feed received', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Toy', attributes: { 'aria-sort': 'descending' } },
+    { text: 'Name' },
+    { text: 'CRN' },
+    { text: 'Device wearer ID' },
+    { text: 'Person ID' },
+    { text: 'Alias' },
+    { text: 'Last data feed received' },
+    { text: 'Toy' },
   ]
 
   const rows = persons.map(p => [
@@ -64,13 +64,13 @@ export function notificationsToTable(
 ): TableData {
   const title = 'Notifications'
   const headers = [
-    { text: 'Violation type', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Name', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Sent to', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Sent on', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Practitioner', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Status', attributes: { 'aria-sort': 'descending' } },
-    { text: 'Message sent', attributes: { 'aria-sort': 'descending' } },
+    { text: 'Violation type' },
+    { text: 'Name' },
+    { text: 'Sent to' },
+    { text: 'Sent on' },
+    { text: 'Practitioner' },
+    { text: 'Status' },
+    { text: 'Message sent' },
   ]
 
   const rows = notifications.map((n, index) => [
