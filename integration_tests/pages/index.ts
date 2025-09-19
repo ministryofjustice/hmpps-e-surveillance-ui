@@ -2,10 +2,8 @@ import Page, { PageElement } from './page'
 
 export default class IndexPage extends Page {
   constructor() {
-    super('Monitor Notifications & Persons')
+    super('EM notifications for people on probation')
   }
 
-  headerUserName = (): PageElement => cy.get('[data-qa=header-user-name]')
-
-  headerPhaseBanner = (): PageElement => cy.get('[data-qa=header-phase-banner]')
+  headerUserName = (): PageElement => cy.get('a.moj-header__navigation-link[aria-current="page"]')
 }

@@ -13,7 +13,7 @@ export default abstract class Page {
     cy.get('h1').contains(this.title)
   }
 
-  signOut = (): PageElement => cy.get('[data-qa=signOut]')
+  signOut = (): PageElement => cy.get('a[href="/sign-out"]')
 
   manageDetails = (): PageElement => cy.get('[data-qa=manageDetails]')
 }
