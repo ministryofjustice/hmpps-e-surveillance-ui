@@ -40,8 +40,7 @@
       },
       input: {
         id: "search",
-        name: "search",
-        value: "search"
+        name: "search"
       },
       hint: {
         text: "You can search by name only"
@@ -50,7 +49,10 @@
         text: "Search"
       }
     }) }}
-</br>
+
+  {% if searchText %}
+    <p class="govuk-body">Search: {{ searchText }}</p>
+  {% endif %}
 
   {% if rows and rows | length > 0 %}
     {{ govukTable({

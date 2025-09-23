@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker'
 import { Notification, Person } from '../data/eSurveillanceClient'
 import { getPaginationData, PaginationData } from './paginationData'
 import { generateReadMoreHtml } from './utils'
@@ -10,6 +11,7 @@ export type TableData = {
   notFoundMessage: string
   header: string
   searchUrl: string
+  searchText: string
 }
 
 export function personsToTable(
@@ -32,7 +34,7 @@ export function personsToTable(
 
   const rows = persons.map(p => [
     { text: `${p.givenName} ${p.familyName}` },
-    { text: 'P485739' },
+    { text: `P${faker.string.numeric(6)}` },
     { text: p.uniqueDeviceWearerId },
     { text: p.personId },
     { text: p.alias },
@@ -52,6 +54,7 @@ export function personsToTable(
     notFoundMessage: 'No cases records.',
     header: 'Cases',
     searchUrl: '/cases',
+    searchText,
   }
 }
 
@@ -76,7 +79,7 @@ export function notificationsToTable(
   const rows = notifications.map((n, index) => [
     { text: formatViolations(n.violation) },
     { text: n.personName },
-    { text: '07400000000' },
+    { text: faker.helpers.replaceSymbols('07#########') },
     { text: '9:15 AM 15 Aug 2025' },
     { text: 'Mark Smith' },
     { text: 'Sent' },
@@ -95,6 +98,7 @@ export function notificationsToTable(
     notFoundMessage: 'No notification generated yet.',
     header: 'Notifications',
     searchUrl: '/notifications',
+    searchText,
   }
 
   function formatViolations(value: string): string {
