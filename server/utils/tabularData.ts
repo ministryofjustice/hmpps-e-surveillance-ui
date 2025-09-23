@@ -83,7 +83,7 @@ export function notificationsToTable(
     { text: '9:15 AM 15 Aug 2025' },
     { text: 'Mark Smith' },
     { text: 'Sent' },
-    { html: generateReadMoreHtml(n.message, index) },
+    { html: generateReadMoreHtml(n.message, index), classes: 'app‑last‑col‑extra‑width' },
   ])
 
   const paginationUrl =

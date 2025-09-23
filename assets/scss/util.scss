@@ -31,3 +31,51 @@
   flex: 1;
 }
 
+
+
+.read-more-cell {
+  overflow: hidden;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.read-more-checkbox {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.read-more-text .more-text {
+  display: none;
+}
+
+.read-more-label {
+  display: inline-block;
+  margin-top: 4px;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* BEFORE checked: show "Read more" */
+.read-more-label::after {
+  content: " Read more";
+}
+
+/* WHEN checked: show the extra content AND change label text */
+.read-more-checkbox:checked ~ .read-more-text .more-text {
+  display: inline;
+}
+
+.read-more-checkbox:checked ~ .read-more-label::after {
+  content: " View less";
+}
+
+.app‑last‑col‑extra‑width {
+  width: 400px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+
