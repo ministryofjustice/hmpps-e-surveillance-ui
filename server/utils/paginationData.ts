@@ -14,7 +14,7 @@ export function getPaginationData(
   const addPage = (page: number) => {
     items.push({
       text: (page + 1).toString(), // Display 1-based
-      href: `${baseUrl}${page}`, // Use 0-based in href
+      href: `${baseUrl}${page + 1}`, // Use 0-based in href
       selected: page === currentPage,
     })
   }
