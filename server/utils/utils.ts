@@ -45,9 +45,10 @@ export function generateReadMoreHtml(message: string, id: string | number): stri
     <div class="read-more-cell">
       <input type="checkbox" id="toggle‑${id}" class="read-more-checkbox">
       <span class="read-more-text">
-        ${preview}
+        ${preview}<span class="ellipsis">...</span>
         <span class="more-text">${rest}</span>
       </span>
+      <br/>
       <label for="toggle‑${id}" class="read-more-label"></label>
     </div>
  `

@@ -62,28 +62,25 @@ export default class ESurveillanceApiClient extends RestClient {
     super('E-Surveillance API', config.apis.eSurveillanceApi, logger, authenticationClient)
   }
 
-  private buildQueryParams(queryParams?: Record<string, QueryParam>): URLSearchParams {
+  private buildQueryParams(queryParams?: Record<string, QueryParam>): string {
     const params = new URLSearchParams()
     if (queryParams) {
       Object.entries(queryParams).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
-          params.append(key, String(value))
+          params.append(key, String(value).trim())
         }
       })
     }
-    return params
+    return params.toString()
   }
 
   async getPersons(queryParams?: Record<string, QueryParam>): Promise<PersonsResponse> {
-    return this.get<PersonsResponse>(
-      { path: `/persons?${this.buildQueryParams(queryParams)}`, query: this.buildQueryParams(queryParams) },
-      asSystem(),
-    )
+    return this.get<PersonsResponse>({ path: '/persons', query: this.buildQueryParams(queryParams) }, asSystem())
   }
 
   async getNotifications(queryParams?: Record<string, QueryParam>): Promise<NotificationsResponse> {
     return this.get<NotificationsResponse>(
-      { path: `/notifications?${this.buildQueryParams(queryParams)}`, query: this.buildQueryParams(queryParams) },
+      { path: '/notifications', query: this.buildQueryParams(queryParams) },
       asSystem(),
     )
   }

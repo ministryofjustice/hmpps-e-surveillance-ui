@@ -81,7 +81,7 @@ export function notificationsToTable(
     { text: n.personName },
     { text: faker.helpers.replaceSymbols('07#########') },
     { text: '9:15 AM 15 Aug 2025' },
-    { text: 'Mark Smith' },
+    { text: faker.person.fullName() },
     { text: 'Sent' },
     { html: generateReadMoreHtml(n.message, index), classes: 'app‑last‑col‑extra‑width' },
   ])

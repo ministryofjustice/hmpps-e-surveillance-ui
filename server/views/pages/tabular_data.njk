@@ -22,9 +22,9 @@
       }
     ]
   }) }}
-  </br>
+
 <div class="inline-container">
-  <div>
+  <div class="govuk-!-padding-top-2">
     <h1 class="govuk-heading-l">{{ header }}</h1>
   </div>
   <div><a class="govuk-link" href="/upload">Upload Data</a></div>
@@ -63,8 +63,9 @@
       head: headers,
       rows: rows
     }) }}
-
-    {{ mojPagination(pagination) }}
+    <div class="govuk-!-padding-left-4 govuk-!-margin-bottom-4">
+        {{ mojPagination(pagination) }}
+    </div>
   {% else %}
     <p class="govuk-body">
       {{ notFoundMessage }} Please
