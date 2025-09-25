@@ -22,7 +22,7 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
 
       const personsResponse = await eSurveillanceService.getPersons(normaliseQuery(req.query))
       const persons = personsResponse?.content ?? []
-      const currentPageNumber = personsResponse?.pageable?.pageNumber ?? 0
+      const currentPageNumber = parseInt(req.query.page as string, 10) || 1
       const totalElements = personsResponse?.totalElements ?? 0
       const pageSize = personsResponse?.pageable?.pageSize ?? 0
       const searchText = req.query?.search as string
@@ -41,7 +41,7 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
       })
       const notificationsResponse = await eSurveillanceService.getNotifications(normaliseQuery(req.query))
       const notifications = notificationsResponse?.content ?? []
-      const currentPageNumber = notificationsResponse?.pageable?.pageNumber ?? 0
+      const currentPageNumber = parseInt(req.query.page as string, 10) || 1
       const totalElements = notificationsResponse?.totalElements ?? 0
       const pageSize = notificationsResponse?.pageable?.pageSize ?? 0
       const searchText = req.query?.search as string

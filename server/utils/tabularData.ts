@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { Notification, Person } from '../data/eSurveillanceClient'
 import { getPaginationData, PaginationData } from './paginationData'
-import { generateReadMoreHtml } from './utils'
+import { generateReadMoreHtml, formatTimestamp } from './utils'
 
 export type TableData = {
   title: string
@@ -80,7 +80,7 @@ export function notificationsToTable(
     { text: formatViolations(n.violation) },
     { text: n.personName },
     { text: faker.helpers.replaceSymbols('07#########') },
-    { text: '9:15 AM 15 Aug 2025' },
+    { text: formatTimestamp(n.timestamp) },
     { text: faker.person.fullName() },
     { text: 'Sent' },
     { html: generateReadMoreHtml(n.message, index), classes: 'app‑last‑col‑extra‑width' },

@@ -53,3 +53,21 @@ export function generateReadMoreHtml(message: string, id: string | number): stri
     </div>
  `
 }
+
+export function formatTimestamp(input: string): string {
+  const date = new Date(input)
+
+  const time = date
+    .toLocaleTimeString('en-GB', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    })
+    .toUpperCase()
+
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = date.toLocaleString('en-GB', { month: 'short' })
+  const year = date.getFullYear()
+
+  return `${time} ${day} ${month} ${year}`
+}
