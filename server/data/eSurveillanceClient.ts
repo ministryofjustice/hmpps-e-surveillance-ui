@@ -68,7 +68,7 @@ export default class ESurveillanceApiClient extends RestClient {
       Object.entries(queryParams).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
           if (key === 'page') {
-            value = +value - 1
+            value = Math.max(0, +value - 1)
           }
           params.append(key, String(value).trim())
         }
