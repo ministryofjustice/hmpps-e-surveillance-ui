@@ -1,60 +1,111 @@
+import { faker } from '@faker-js/faker'
 import { Notification, Person } from '../data/eSurveillanceClient'
+import { getPaginationData, PaginationData } from './paginationData'
+import { generateReadMoreHtml, formatTimestamp } from './utils'
 
 export type TableData = {
-  caption: string
   title: string
   headers: { text: string }[]
   rows: { text?: string | number | boolean; html?: string }[][]
+  pagination: PaginationData
   notFoundMessage: string
   header: string
+  searchUrl: string
+  searchText: string
 }
 
-export function personsToTable(persons: Person[]): TableData {
+export function personsToTable(
+  persons: Person[],
+  currentPageNumber: number,
+  totalElements: number,
+  pageSize: number,
+  searchText: string,
+): TableData {
   const title = 'Persons'
   const headers = [
-    { text: 'Id' },
-    { text: 'Delius Id' },
-    { text: 'Unique Device Wearer Id' },
-    { text: 'Person Id' },
-    { text: 'Given Name' },
-    { text: 'Family Name' },
+    { text: 'Name' },
+    { text: 'CRN' },
+    { text: 'Device wearer ID' },
+    { text: 'Person ID' },
     { text: 'Alias' },
-    { text: 'Created At' },
+    { text: 'Last data feed received' },
     { text: 'Toy' },
   ]
 
   const rows = persons.map(p => [
-    { text: p.id },
-    { text: p.deliusId },
+    { text: `${p.givenName} ${p.familyName}` },
+    { text: `P${faker.string.numeric(6)}` },
     { text: p.uniqueDeviceWearerId },
     { text: p.personId },
-    { text: p.givenName },
-    { text: p.familyName },
     { text: p.alias },
     { text: new Date(p.createdAt).toLocaleString() },
-    { text: p.toy },
+    { text: String(p.toy).replace(/^./, c => c.toUpperCase()) },
   ])
 
-  return { caption: title, title, headers, rows, notFoundMessage: 'No person records found.', header: 'Person records' }
-}
+  const paginationUrl =
+    searchText === undefined ? '/cases?page=' : `/cases?search=${encodeURIComponent(searchText)}&page=`
 
-export function notificationsToTable(notifications: Notification[]): TableData {
-  const title = 'Notifications'
-  const headers = [{ text: 'Id' }, { text: 'Violation type' }, { text: 'Message' }, { text: 'Date' }]
-
-  const rows = notifications.map(n => [
-    { text: n.id },
-    { text: n.violation },
-    { html: n.message ? n.message.replaceAll('\n\n', '<br/>') : '' },
-    { text: new Date(n.timestamp).toLocaleString() },
-  ])
-
+  const pagination = getPaginationData(totalElements, currentPageNumber, pageSize, paginationUrl)
   return {
-    caption: title,
     title,
     headers,
     rows,
+    pagination,
+    notFoundMessage: 'No cases records.',
+    header: 'Cases',
+    searchUrl: '/cases',
+    searchText,
+  }
+}
+
+export function notificationsToTable(
+  notifications: Notification[],
+  currentPageNumber: number,
+  totalElements: number,
+  pageSize: number,
+  searchText: string,
+): TableData {
+  const title = 'Notifications'
+  const headers = [
+    { text: 'Violation type' },
+    { text: 'Name' },
+    { text: 'Sent to' },
+    { text: 'Sent on' },
+    { text: 'Practitioner' },
+    { text: 'Status' },
+    { text: 'Message sent' },
+  ]
+
+  const rows = notifications.map((n, index) => [
+    { text: formatViolations(n.violation) },
+    { text: n.personName },
+    { text: faker.helpers.replaceSymbols('07#########') },
+    { text: formatTimestamp(n.timestamp) },
+    { text: faker.person.fullName() },
+    { text: 'Sent' },
+    { html: generateReadMoreHtml(n.message, index), classes: 'app‑last‑col‑extra‑width' },
+  ])
+
+  const paginationUrl =
+    searchText === undefined ? '/notifications?page=' : `/notifications?search=${encodeURIComponent(searchText)}&page=`
+
+  const pagination = getPaginationData(totalElements, currentPageNumber, pageSize, paginationUrl)
+  return {
+    title,
+    headers,
+    rows,
+    pagination,
     notFoundMessage: 'No notification generated yet.',
-    header: 'Generated notifications',
+    header: 'Notifications',
+    searchUrl: '/notifications',
+    searchText,
+  }
+
+  function formatViolations(value: string): string {
+    return value
+      .toLowerCase()
+      .split('_')
+      .map((word, index) => (index === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word))
+      .join(' ') // "Tampering with device"
   }
 }

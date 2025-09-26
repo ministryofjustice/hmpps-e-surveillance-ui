@@ -1,7 +1,7 @@
 {
   "name": "hmpps-e-surveillance-ui",
   "version": "0.0.1",
-  "description": "HMPPS E Surveillance Ui",
+  "description": "EM notifications for people on probation",
   "repository": "git@github.com:ministryofjustice/hmpps-e-surveillance-ui.git",
   "license": "MIT",
   "scripts": {
@@ -77,6 +77,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.835.0",
+    "@faker-js/faker": "^10.0.0",
     "@ministryofjustice/frontend": "^5.1.4",
     "@ministryofjustice/hmpps-auth-clients": "^0.0.1",
     "@ministryofjustice/hmpps-monitoring": "^0.0.1",

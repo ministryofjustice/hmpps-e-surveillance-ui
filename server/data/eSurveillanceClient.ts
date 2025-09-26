@@ -6,6 +6,7 @@ import logger from '../../logger'
 export type Notification = {
   id: number
   personId: string
+  personName: string
   violation: string
   timestamp: string
   message: string
@@ -61,16 +62,19 @@ export default class ESurveillanceApiClient extends RestClient {
     super('E-Surveillance API', config.apis.eSurveillanceApi, logger, authenticationClient)
   }
 
-  private buildQueryParams(queryParams?: Record<string, QueryParam>): URLSearchParams {
+  private buildQueryParams(queryParams?: Record<string, QueryParam>): string {
     const params = new URLSearchParams()
     if (queryParams) {
       Object.entries(queryParams).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
-          params.append(key, String(value))
+          if (key === 'page') {
+            value = Math.max(0, +value - 1)
+          }
+          params.append(key, String(value).trim())
         }
       })
     }
-    return params
+    return params.toString()
   }
 
   async getPersons(queryParams?: Record<string, QueryParam>): Promise<PersonsResponse> {

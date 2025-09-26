@@ -1,0 +1,61 @@
+.inline-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.inline-container > :first-child {
+  flex: 1;
+}
+
+.read-more-cell {
+  overflow: hidden;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.read-more-checkbox {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.read-more-text .more-text {
+  display: none;
+}
+
+.read-more-label {
+  display: inline-block;
+  margin-top: 4px;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ellipsis {
+  display: inline;
+}
+
+.read-more-label::after {
+  content: " Read more";
+}
+
+.read-more-checkbox:checked ~ .read-more-text .more-text {
+  display: inline;
+}
+
+.read-more-checkbox:checked ~ .read-more-text .ellipsis {
+  display: none;
+}
+
+.read-more-checkbox:checked ~ .read-more-label::after {
+  content: " View less";
+}
+
+.app‑last‑col‑extra‑width {
+  width: 400px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}

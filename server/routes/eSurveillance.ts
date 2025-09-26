@@ -13,15 +13,20 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
   const router = Router()
   const upload = multer({ dest: 'temp/' })
 
-  router.get('/persons', async (req, res, next) => {
+  router.get('/cases', async (req, res, next) => {
     try {
       await auditService.logPageView(Page.ESURVEILLANCE_PERSONS, {
         who: res.locals.user.username,
         correlationId: req.id,
       })
 
-      const persons = await eSurveillanceService.getPersons(normaliseQuery(req.query))
-      const viewModel = personsToTable(persons)
+      const personsResponse = await eSurveillanceService.getPersons(normaliseQuery(req.query))
+      const persons = personsResponse?.content ?? []
+      const currentPageNumber = parseInt(req.query.page as string, 10) || 1
+      const totalElements = personsResponse?.totalElements ?? 0
+      const pageSize = personsResponse?.pageable?.pageSize ?? 0
+      const searchText = req.query?.search as string
+      const viewModel = personsToTable(persons, currentPageNumber, totalElements, pageSize, searchText)
       return res.render('pages/tabular_data', viewModel)
     } catch (error) {
       return next(error)
@@ -34,9 +39,13 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
         who: res.locals.user.username,
         correlationId: req.id,
       })
-
-      const notifications = await eSurveillanceService.getNotifications(normaliseQuery(req.query))
-      const viewModel = notificationsToTable(notifications)
+      const notificationsResponse = await eSurveillanceService.getNotifications(normaliseQuery(req.query))
+      const notifications = notificationsResponse?.content ?? []
+      const currentPageNumber = parseInt(req.query.page as string, 10) || 1
+      const totalElements = notificationsResponse?.totalElements ?? 0
+      const pageSize = notificationsResponse?.pageable?.pageSize ?? 0
+      const searchText = req.query?.search as string
+      const viewModel = notificationsToTable(notifications, currentPageNumber, totalElements, pageSize, searchText)
       return res.render('pages/tabular_data', viewModel)
     } catch (error) {
       return next(error)
