@@ -22,6 +22,7 @@ context('Sign In', () => {
 
   it('User name visible in header', () => {
     cy.task('stubNotifications')
+    cy.task('stubSignIn')
     cy.signIn()
     const indexPage = Page.verifyOnPage(IndexPage)
     indexPage.headerUserName().should('contain.text', 'J. Smith')
