@@ -11,7 +11,7 @@ context('Sign In', () => {
   })
 
   it('Unauthenticated user directed to auth', () => {
-    cy.visit('/')
+    cy.visit('/notifications')
     Page.verifyOnPage(AuthSignInPage)
   })
 
@@ -46,7 +46,7 @@ context('Sign In', () => {
     Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
 
-    cy.visit('/')
+    cy.visit('/notifications')
     Page.verifyOnPage(AuthSignInPage)
   })
 
@@ -55,7 +55,7 @@ context('Sign In', () => {
     const indexPage = Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
 
-    cy.visit('/')
+    cy.visit('/notifications')
     Page.verifyOnPage(AuthSignInPage)
 
     cy.task('stubVerifyToken', true)
