@@ -1,5 +1,5 @@
 import { defineConfig } from 'cypress'
-import { resetStubs } from './integration_tests/mockApis/wiremock'
+import { stubFor, resetStubs } from './integration_tests/mockApis/wiremock'
 import auth from './integration_tests/mockApis/auth'
 import tokenVerification from './integration_tests/mockApis/tokenVerification'
 import exampleApi from './integration_tests/mockApis/exampleApi'
@@ -17,6 +17,25 @@ export default defineConfig({
   e2e: {
     setupNodeEvents(on) {
       on('task', {
+        stubNotifications: () =>
+          stubFor({
+            request: {
+              method: 'GET',
+              urlPattern: '/notifications',
+            },
+            response: {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' },
+              jsonBody: {
+                content: [
+                  { id: 1, title: 'Test Notification 1' },
+                  { id: 2, title: 'Test Notification 2' },
+                ],
+                totalElements: 2,
+                pageable: { pageSize: 20 },
+              },
+            },
+          }),
         reset: resetStubs,
         ...auth,
         ...tokenVerification,

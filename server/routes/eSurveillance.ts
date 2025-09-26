@@ -34,23 +34,22 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
   })
 
   router.get('/notifications', async (req, res, next) => {
-    return res.render('pages/index')
-    //     try {
-    //       await auditService.logPageView(Page.ESURVEILLANCE_NOTIFICATIONS, {
-    //         who: res.locals.user.username,
-    //         correlationId: req.id,
-    //       })
-    //       const notificationsResponse = await eSurveillanceService.getNotifications(normaliseQuery(req.query))
-    //       const notifications = notificationsResponse?.content ?? []
-    //       const currentPageNumber = parseInt(req.query.page as string, 10) || 1
-    //       const totalElements = notificationsResponse?.totalElements ?? 0
-    //       const pageSize = notificationsResponse?.pageable?.pageSize ?? 0
-    //       const searchText = req.query?.search as string
-    //       const viewModel = notificationsToTable(notifications, currentPageNumber, totalElements, pageSize, searchText)
-    //       return res.render('pages/tabular_data', viewModel)
-    //     } catch (error) {
-    //       return next(error)
-    //     }
+    try {
+      await auditService.logPageView(Page.ESURVEILLANCE_NOTIFICATIONS, {
+        who: res.locals.user.username,
+        correlationId: req.id,
+      })
+      const notificationsResponse = await eSurveillanceService.getNotifications(normaliseQuery(req.query))
+      const notifications = notificationsResponse?.content ?? []
+      const currentPageNumber = parseInt(req.query.page as string, 10) || 1
+      const totalElements = notificationsResponse?.totalElements ?? 0
+      const pageSize = notificationsResponse?.pageable?.pageSize ?? 0
+      const searchText = req.query?.search as string
+      const viewModel = notificationsToTable(notifications, currentPageNumber, totalElements, pageSize, searchText)
+      return res.render('pages/tabular_data', viewModel)
+    } catch (error) {
+      return next(error)
+    }
   })
 
   router.get('/upload', async (req, res) => {

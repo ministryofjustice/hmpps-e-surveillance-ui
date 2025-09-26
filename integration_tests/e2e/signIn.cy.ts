@@ -21,14 +21,8 @@ context('Sign In', () => {
   })
 
   it('User name visible in header', () => {
-    cy.task('stubSignIn')
+    cy.task('stubNotifications')
     cy.signIn()
-    cy.visit('/auth/login')
-    cy.location('pathname').should('eq', '/notifications')
-    //     cy.get('a.moj-header__navigation-link[aria-current="page"]').should('contain.text', 'J. Smith')
-    //       cy.location('pathname').should('eq', '/notifications')
-    //       cy.get('a.moj-header__navigation-link[aria-current="page"]')
-    //         .should('contain.text', 'J. Smith')
     const indexPage = Page.verifyOnPage(IndexPage)
     indexPage.headerUserName().should('contain.text', 'J. Smith')
   })
