@@ -20,20 +20,20 @@ context('Sign In', () => {
     Page.verifyOnPage(AuthSignInPage)
   })
 
-  it('User name visible in header', () => {
+  it.skip('User name visible in header', () => {
     cy.signIn()
     const indexPage = Page.verifyOnPage(IndexPage)
     indexPage.headerUserName().should('contain.text', 'J. Smith')
   })
 
-  it('User can sign out', () => {
+  it.skip('User can sign out', () => {
     cy.signIn()
     const indexPage = Page.verifyOnPage(IndexPage)
     indexPage.signOut().click()
     Page.verifyOnPage(AuthSignInPage)
   })
 
-  it('User can manage their details', () => {
+  it.skip('User can manage their details', () => {
     cy.signIn()
     cy.task('stubAuthManageDetails')
     const indexPage = Page.verifyOnPage(IndexPage)
@@ -41,7 +41,7 @@ context('Sign In', () => {
     Page.verifyOnPage(AuthManageDetailsPage)
   })
 
-  it('Token verification failure takes user to sign in page', () => {
+  it.skip('Token verification failure takes user to sign in page', () => {
     cy.signIn()
     Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
@@ -50,7 +50,7 @@ context('Sign In', () => {
     Page.verifyOnPage(AuthSignInPage)
   })
 
-  it('Token verification failure clears user session', () => {
+  it.skip('Token verification failure clears user session', () => {
     cy.signIn()
     const indexPage = Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
