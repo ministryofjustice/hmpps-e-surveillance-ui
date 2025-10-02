@@ -1,0 +1,82 @@
+{% extends "../partials/layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = applicationName + " - EM notifications for people on probation" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Confirm your information</h1>
+      <p class="govuk-body govuk-hint">Your information will be stored using local storage cookies on this device only.</p>
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <form action="/personal-data" method="post" novalidate>
+
+        {{ govukInput({
+          label: {
+            text: "Name"
+          },
+          id: "first-name",
+          name: "firstName",
+          classes: "govuk-input--width-20",
+          errorMessage: errorsByField.firstName,
+          value: data.firstName
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Surname"
+          },
+          id: "family-name",
+          name: "familyName",
+          classes: "govuk-input--width-20",
+          errorMessage: errorsByField.familyName,
+          value: data.familyName
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Email address"
+          },
+          id: "email",
+          name: "email",
+          type: "email",
+          hint: {
+            text :"email"
+          },
+          classes: "govuk-input--width-20",
+          errorMessage: errorsByField.email,
+          value: data.email
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Mobile number"
+          },
+          id: "mobile",
+          name: "mobile",
+          type: "tel",
+          autocomplete: "tel",
+          classes: "govuk-input--width-20",
+          errorMessage: errorsByField.mobile,
+          value: data.mobile
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
