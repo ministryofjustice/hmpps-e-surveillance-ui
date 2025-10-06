@@ -5,6 +5,7 @@ import ESurveillanceApiClient, {
   QueryParam,
   Notification,
   Person,
+  TriggerNotificationRequest,
 } from '../data/eSurveillanceClient'
 
 export default class ESurveillanceService {
@@ -23,5 +24,10 @@ export default class ESurveillanceService {
   async getUploadUrl(filename: string): Promise<string> {
     const response = await this.apiClient.getUploadUrl(filename)
     return response.toString()
+  }
+
+  async triggerNotification(payload: TriggerNotificationRequest): Promise<void> {
+    const response = await this.apiClient.triggerNotification(payload)
+    return response
   }
 }

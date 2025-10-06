@@ -1,0 +1,77 @@
+{% extends "../partials/layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = applicationName + " - EM notifications for people on probation" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Person on probation information</h1>
+
+      <p class="govuk-body govuk-hint">
+        This information will be used for demo purposes only to send a text message based on the violation notification triggered.
+        The message will be sent to the mobile number provided.
+        This information will be stored using local storage cookies on this device only.
+      </p>
+
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+
+      <form action="/person-data" method="post" novalidate>
+
+        {{ govukInput({
+          label: {
+            text: "First name"
+          },
+          id: "given-name",
+          name: "givenName",
+          classes: "govuk-input--width-20",
+          errorMessage: errorsByField.givenName,
+          value: data.givenName
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Last name"
+          },
+          id: "family-name",
+          name: "familyName",
+          classes: "govuk-input--width-20",
+          errorMessage: errorsByField.familyName,
+          value: data.familyName
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Mobile number"
+          },
+          hint: {
+            text: "This will only be used to send you a text message of what a person on probation will receive when you trigger a demo"
+          },
+          id: "phoneNumber",
+          name: "phoneNumber",
+          type: "tel",
+          autocomplete: "tel",
+          classes: "govuk-input--width-20",
+          errorMessage: errorsByField.phoneNumber,
+          value: data.phoneNumber
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

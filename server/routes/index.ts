@@ -9,7 +9,7 @@ export default function routes({ auditService }: Services): Router {
   router.get('/', async (req, res, next) => {
     await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
 
-    return res.redirect('/notifications')
+    return res.redirect('/practitioner-data')
   })
 
   return router

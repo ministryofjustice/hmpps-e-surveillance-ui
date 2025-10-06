@@ -53,6 +53,17 @@ export type ApiResponse<T> = {
   empty: boolean
 }
 
+export interface TriggerNotificationRequest {
+  ppGivenName: string
+  ppFamilyName: string
+  givenName: string
+  familyName: string
+  violationType: string
+  phoneNumber: string
+  email: string
+  [key: string]: unknown
+}
+
 export type NotificationsResponse = ApiResponse<Notification>
 export type PersonsResponse = ApiResponse<Person>
 export type QueryParam = string | number | Date
@@ -97,5 +108,15 @@ export default class ESurveillanceApiClient extends RestClient {
       asSystem(),
     )
     return new URL(response)
+  }
+
+  async triggerNotification(payload: TriggerNotificationRequest): Promise<void> {
+    await this.post<void>(
+      {
+        path: '/trigger-notification',
+        data: payload,
+      },
+      asSystem(),
+    )
   }
 }

@@ -1,0 +1,97 @@
+{% extends "../partials/layout.njk" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
+{% set pageTitle = applicationName + " - " + pageTitle %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if errors and errors.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors
+        }) }}
+      {% endif %}
+      {% if status == "success" and phoneNumber and email %}
+        {{ mojAlert({
+          variant: "success",
+          title: "Notification sent",
+          showTitleAsHeading: true,
+          dismissible: false,
+          text: "We have sent an example violation notification to " + phoneNumber + " and " + email
+        }) }}
+      {% endif %}
+      {% if status == "failed" and phoneNumber and email %}
+        {{ mojAlert({
+          variant: "error",
+          title: "Notification has not been sent",
+          showTitleAsHeading: true,
+          dismissible: false,
+          text: "We were unable to send an example violation notification to " + phoneNumber + " and " + email + ". Try again later."
+        }) }}
+      {% endif %}
+      <form action="/trigger-notification" method="post" novalidate id="notificationForm">
+        {{ govukRadios({
+          name: "violationType",
+          fieldset: {
+            legend: {
+              text: "Select violation notification",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "You can use this demo service to trigger notifications to your email address and mobile number that would happen during different real-life scenarios based on electronic monitoring considers for people on probation."
+          },
+          errorMessage: errorsByField.violationType,
+          items: [
+            { value: "ENTERING_EXCLUSION_ZONE", text: "Exclusion zone violation" },
+            { value: "MISSING_CURFEW", text: "Curfew violation" },
+            { value: "TAMPERING_WITH_DEVICE", text: "Tampering with device" },
+            { value: "BATTERY_LOW", text: "Low battery" }
+          ]
+        }) }}
+
+        {{ govukButton({ text: "Trigger notification" }) }}
+      </form>
+    </div>
+  </div>
+
+  <script nonce="{{ cspNonce }}">
+    (function () {
+      const form = document.getElementById('notificationForm');
+      const personData = localStorage.getItem('personData');
+      const practitionerData = localStorage.getItem('practitionerData');
+
+      if (!personData || !practitionerData) return;
+
+      const pData = JSON.parse(personData);
+      ['givenName', 'familyName', 'phoneNumber'].forEach((key) => {
+        if (pData[key]) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = pData[key];
+          form.appendChild(input);
+        }
+      });
+
+      const ppData = JSON.parse(practitionerData);
+      ['ppGivenName', 'ppFamilyName', 'email'].forEach((key) => {
+        if (ppData[key]) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = ppData[key];
+          form.appendChild(input);
+        }
+      });
+    })();
+  </script>
+{% endblock %}
