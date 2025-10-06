@@ -33,8 +33,8 @@ export default function triggerNotificationRoutes({ auditService, eSurveillanceS
       const errorsByField: ErrorsByField = {}
 
       if (!violationType) {
-        errors.push({ text: 'Select one of option', href: '#violationType' })
-        errorsByField.violationType = { text: 'Select one of option' }
+        errors.push({ text: 'Select an option', href: '#violationType' })
+        errorsByField.violationType = { text: 'Select an option' }
       }
 
       if (errors.length > 0) {

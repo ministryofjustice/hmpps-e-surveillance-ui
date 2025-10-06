@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express'
-import { UK_PHONE_NUMBER_REGEX, EMAIL_REGEX } from '../utils/regex'
+import { UK_PHONE_NUMBER_REGEX } from '../utils/regex'
 
 export default function personDataRoutes(): Router {
   interface PersonData {
