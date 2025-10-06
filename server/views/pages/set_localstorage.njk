@@ -5,19 +5,14 @@
   <title>Saving your data...</title>
 </head>
 <body>
-<p>Saving your data, please wait...</p>
-{{ cspNonce }}
-<script nonce="{{ cspNonce }}">
-  (function() {
-    // Data passed from server as a JSON string
-    const data = {{ data | safe }};
-
-    // Save to localStorage
-    localStorage.setItem("{{ key }}", JSON.stringify(data));
-
-    // Redirect after storing
-    window.location.href = "{{ redirectUrl }}";
-  })();
-</script>
+  <p>Saving your data, please wait...</p>
+  {{ cspNonce }}
+  <script nonce="{{ cspNonce }}">
+    (function() {
+      const data = {{ data | safe }};
+      localStorage.setItem("{{ key }}", JSON.stringify(data));
+      window.location.href = "{{ redirectUrl }}";
+    })();
+  </script>
 </body>
 </html>

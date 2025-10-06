@@ -17,7 +17,8 @@ import setUpWebSession from './middleware/setUpWebSession'
 
 import routes from './routes'
 import eSurvRoutes from './routes/eSurveillance'
-import personalDataRoutes from './routes/personalData'
+import personDataRoutes from './routes/personData'
+import practitionerDataRoutes from './routes/practitionerData'
 import triggerNotificationRoutes from './routes/triggerNotification'
 import type { Services } from './services'
 
@@ -41,7 +42,8 @@ export default function createApp(services: Services): express.Application {
 
   app.use(routes(services))
   app.use(eSurvRoutes(services))
-  app.use(personalDataRoutes())
+  app.use(personDataRoutes())
+  app.use(practitionerDataRoutes())
   app.use(triggerNotificationRoutes(services))
 
   app.use((req, res, next) => next(createError(404, 'Not found')))

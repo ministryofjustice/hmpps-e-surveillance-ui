@@ -1,12 +1,11 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import { UK_PHONE_NUMBER_REGEX, EMAIL_REGEX } from '../utils/regex'
 
-export default function personalDataRoutes(): Router {
-  interface PersonalData {
-    firstName: string
-    familyName: string
+export default function practitionerDataRoutes(): Router {
+  interface PractitionerData {
+    ppGivenName: string
+    ppFamilyName: string
     email: string
-    mobile: string
   }
 
   interface GovukError {
@@ -22,9 +21,9 @@ export default function personalDataRoutes(): Router {
 
   const router = Router()
 
-  router.get('/personal-data', async (req: Request, res: Response, next: NextFunction) => {
+  router.get('/practitioner-data', async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.render('pages/personal_data', {
+      res.render('pages/practitioner_data', {
         data: {},
         errors: [],
         errorsByField: {},
@@ -34,21 +33,21 @@ export default function personalDataRoutes(): Router {
     }
   })
 
-  router.post('/personal-data', async (req: Request, res: Response, next: NextFunction) => {
+  router.post('/practitioner-data', async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { firstName, familyName, email, mobile } = req.body as PersonalData
+      const { ppGivenName, ppFamilyName, email } = req.body as PractitionerData
 
       const errors: GovukError[] = []
       const errorsByField: ErrorsByField = {}
 
-      if (!firstName || firstName.trim() === '') {
+      if (!ppGivenName || ppGivenName.trim() === '') {
         errors.push({ text: 'Enter your name', href: '#first-name' })
-        errorsByField.firstName = { text: 'Enter your name' }
+        errorsByField.ppGivenName = { text: 'Enter your name' }
       }
 
-      if (!familyName || familyName.trim() === '') {
+      if (!ppFamilyName || ppFamilyName.trim() === '') {
         errors.push({ text: 'Enter your surname', href: '#family-name' })
-        errorsByField.familyName = { text: 'Enter your surname' }
+        errorsByField.ppFamilyName = { text: 'Enter your surname' }
       }
 
       if (!email || email.trim() === '') {
@@ -59,30 +58,21 @@ export default function personalDataRoutes(): Router {
         errorsByField.email = { text: 'Enter a valid email address' }
       }
 
-      if (!mobile || mobile.trim() === '') {
-        errors.push({ text: 'Enter your mobile number', href: '#mobile' })
-        errorsByField.mobile = { text: 'Enter your mobile number' }
-      } else if (!UK_PHONE_NUMBER_REGEX.test(mobile)) {
-        errors.push({ text: 'Enter a valid mobile number', href: '#mobile' })
-        errorsByField.mobile = { text: 'Enter a valid mobile number' }
-      }
-
       if (errors.length > 0) {
-        res.render('pages/personal_data', {
+        res.render('pages/practitioner_data', {
           errors,
           errorsByField,
           data: {
-            firstName,
-            familyName,
+            ppGivenName,
+            ppFamilyName,
             email,
-            mobile,
           },
         })
       } else {
         res.render('pages/set_localstorage', {
-          data: JSON.stringify({ firstName, familyName, email, mobile }),
-          key: 'personalData',
-          redirectUrl: '/trigger-notification',
+          data: JSON.stringify({ ppGivenName, ppFamilyName, email }),
+          key: 'practitionerData',
+          redirectUrl: '/person-data',
         })
       }
     } catch (err) {
