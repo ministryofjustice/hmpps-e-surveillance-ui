@@ -1,24 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import { UK_PHONE_NUMBER_REGEX } from '../utils/regex'
+import { personFieldErrors } from '../utils/fieldConfigs'
+import { validateRequiredFields } from '../utils/validators'
 
 export default function personDataRoutes(): Router {
-  interface PersonData {
-    givenName: string
-    familyName: string
-    phoneNumber: string
-  }
-
-  interface GovukError {
-    text: string
-    href: string
-  }
-
-  interface ErrorsByField {
-    [fieldName: string]: {
-      text: string
-    }
-  }
-
   const router = Router()
 
   router.get('/person-data', async (req: Request, res: Response, next: NextFunction) => {
@@ -37,25 +22,14 @@ export default function personDataRoutes(): Router {
 
   router.post('/person-data', async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { givenName, familyName, phoneNumber } = req.body as PersonData
+      const { givenName, familyName, phoneNumber } = req.body
 
-      const errors: GovukError[] = []
-      const errorsByField: ErrorsByField = {}
+      const { errors, errorsByField, hasErrors } = validateRequiredFields(
+        { givenName, familyName, phoneNumber },
+        personFieldErrors,
+      )
 
-      if (!givenName || givenName.trim() === '') {
-        errors.push({ text: 'Enter first name', href: '#first-name' })
-        errorsByField.givenName = { text: 'Enter first name' }
-      }
-
-      if (!familyName || familyName.trim() === '') {
-        errors.push({ text: 'Enter last name', href: '#family-name' })
-        errorsByField.familyName = { text: 'Enter last name' }
-      }
-
-      if (!phoneNumber || phoneNumber.trim() === '') {
-        errors.push({ text: 'Enter mobile number', href: '#phoneNumber' })
-        errorsByField.phoneNumber = { text: 'Enter mobile number' }
-      } else if (!UK_PHONE_NUMBER_REGEX.test(phoneNumber)) {
+      if (!hasErrors && phoneNumber && !UK_PHONE_NUMBER_REGEX.test(phoneNumber)) {
         errors.push({ text: 'Enter a valid mobile number', href: '#phoneNumber' })
         errorsByField.phoneNumber = { text: 'Enter a valid mobile number' }
       }
@@ -64,11 +38,7 @@ export default function personDataRoutes(): Router {
         res.render('pages/person_data', {
           errors,
           errorsByField,
-          data: {
-            givenName,
-            familyName,
-            phoneNumber,
-          },
+          data: { givenName, familyName, phoneNumber },
         })
       } else {
         req.session.personData = { givenName, familyName, phoneNumber }
