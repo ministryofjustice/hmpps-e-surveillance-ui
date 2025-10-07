@@ -31,6 +31,15 @@ export default function triggerNotificationRoutes({ auditService, eSurveillanceS
     const { givenName, familyName, phoneNumber } = req.session.personData
     const { ppGivenName, ppFamilyName, email } = req.session.practitionerData
 
+    if (!givenName || !familyName || !phoneNumber) {
+      logger.error('Missing practitioner data')
+      return res.redirect('/person-data')
+    }
+    if (!ppGivenName || !ppFamilyName || !email) {
+      logger.error('Missing person data')
+      return res.redirect('/practitioner-data')
+    }
+
     try {
       const errors: GovukError[] = []
       const errorsByField: ErrorsByField = {}
