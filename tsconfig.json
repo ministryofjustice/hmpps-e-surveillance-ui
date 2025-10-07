@@ -26,7 +26,6 @@
   "include": [
     "**/*.js",
     "**/*.ts",
-    "types/**/*",
     "server/routes/index.test.ts_",
     "server/data/exampleApiClient.test.ts_",
     "server/data/hmppsAuditClient.test.ts_",
