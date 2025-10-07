@@ -91,7 +91,7 @@
     "connect-redis": "^9.0.0",
     "csrf-sync": "^4.2.1",
     "express": "^5.1.0",
-    "express-session": "^1.18.1",
+    "express-session": "^1.18.2",
     "govuk-frontend": "^5.11.0",
     "helmet": "^8.1.0",
     "http-errors": "^2.0.0",
@@ -113,6 +113,7 @@
     "@types/bunyan-format": "^0.2.9",
     "@types/compression": "^1.8.1",
     "@types/connect-flash": "0.0.40",
+    "@types/express": "^5.0.3",
     "@types/express-session": "^1.18.2",
     "@types/http-errors": "^2.0.5",
     "@types/jest": "^30.0.0",
@@ -147,7 +148,8 @@
     "prettier-plugin-jinja-template": "^2.1.0",
     "supertest": "^7.1.1",
     "ts-jest": "^29.4.0",
-    "typescript": "^5.8.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   },
   "overrides": {
     "@jgoz/esbuild-plugin-typecheck": {

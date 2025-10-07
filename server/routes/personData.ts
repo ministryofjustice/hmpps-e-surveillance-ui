@@ -41,18 +41,18 @@ export default function personDataRoutes(): Router {
       const errorsByField: ErrorsByField = {}
 
       if (!givenName || givenName.trim() === '') {
-        errors.push({ text: 'Enter your name', href: '#first-name' })
-        errorsByField.givenName = { text: 'Enter your name' }
+        errors.push({ text: 'Enter first name', href: '#first-name' })
+        errorsByField.givenName = { text: 'Enter first name' }
       }
 
       if (!familyName || familyName.trim() === '') {
-        errors.push({ text: 'Enter your surname', href: '#family-name' })
-        errorsByField.familyName = { text: 'Enter your surname' }
+        errors.push({ text: 'Enter last name', href: '#family-name' })
+        errorsByField.familyName = { text: 'Enter last name' }
       }
 
       if (!phoneNumber || phoneNumber.trim() === '') {
-        errors.push({ text: 'Enter your mobile number', href: '#phoneNumber' })
-        errorsByField.mobile = { text: 'Enter your mobile number' }
+        errors.push({ text: 'Enter mobile number', href: '#phoneNumber' })
+        errorsByField.phoneNumber = { text: 'Enter mobile number' }
       } else if (!UK_PHONE_NUMBER_REGEX.test(phoneNumber)) {
         errors.push({ text: 'Enter a valid mobile number', href: '#phoneNumber' })
         errorsByField.phoneNumber = { text: 'Enter a valid mobile number' }
@@ -69,11 +69,8 @@ export default function personDataRoutes(): Router {
           },
         })
       } else {
-        res.render('pages/set_localstorage', {
-          data: JSON.stringify({ givenName, familyName, phoneNumber }),
-          key: 'personData',
-          redirectUrl: '/trigger-notification',
-        })
+        req.session.personData = { givenName, familyName, phoneNumber }
+        res.redirect('/trigger-notification')
       }
     } catch (err) {
       next(err)

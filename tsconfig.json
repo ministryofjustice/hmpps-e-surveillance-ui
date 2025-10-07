@@ -12,7 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "experimentalDecorators": true,
-    "typeRoots": ["./server/@types", "./node_modules/@types"]
+    "typeRoots": ["./server/@types", "./node_modules/@types", "./server/types"]
   },
   "exclude": [
     "node_modules",
@@ -26,6 +26,7 @@
   "include": [
     "**/*.js",
     "**/*.ts",
+    "types/**/*",
     "server/routes/index.test.ts_",
     "server/data/exampleApiClient.test.ts_",
     "server/data/hmppsAuditClient.test.ts_",

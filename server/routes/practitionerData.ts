@@ -41,18 +41,18 @@ export default function practitionerDataRoutes(): Router {
       const errorsByField: ErrorsByField = {}
 
       if (!ppGivenName || ppGivenName.trim() === '') {
-        errors.push({ text: 'Enter your name', href: '#first-name' })
-        errorsByField.ppGivenName = { text: 'Enter your name' }
+        errors.push({ text: 'Enter first name', href: '#first-name' })
+        errorsByField.ppGivenName = { text: 'Enter first name' }
       }
 
       if (!ppFamilyName || ppFamilyName.trim() === '') {
-        errors.push({ text: 'Enter your surname', href: '#family-name' })
-        errorsByField.ppFamilyName = { text: 'Enter your surname' }
+        errors.push({ text: 'Enter last name', href: '#family-name' })
+        errorsByField.ppFamilyName = { text: 'Enter last name' }
       }
 
       if (!email || email.trim() === '') {
-        errors.push({ text: 'Enter your email address', href: '#email' })
-        errorsByField.email = { text: 'Enter your email address' }
+        errors.push({ text: 'Enter email address', href: '#email' })
+        errorsByField.email = { text: 'Enter email address' }
       } else if (!EMAIL_REGEX.test(email)) {
         errors.push({ text: 'Enter a valid email address', href: '#email' })
         errorsByField.email = { text: 'Enter a valid email address' }
@@ -69,11 +69,8 @@ export default function practitionerDataRoutes(): Router {
           },
         })
       } else {
-        res.render('pages/set_localstorage', {
-          data: JSON.stringify({ ppGivenName, ppFamilyName, email }),
-          key: 'practitionerData',
-          redirectUrl: '/person-data',
-        })
+        req.session.practitionerData = { ppGivenName, ppFamilyName, email }
+        res.redirect('/person-data')
       }
     } catch (err) {
       next(err)

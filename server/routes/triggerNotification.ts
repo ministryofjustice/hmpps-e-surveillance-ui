@@ -27,7 +27,10 @@ export default function triggerNotificationRoutes({ auditService, eSurveillanceS
   })
 
   router.post('/trigger-notification', async (req: Request, res: Response, next: NextFunction) => {
-    const { violationType, givenName, familyName, ppGivenName, ppFamilyName, email, phoneNumber } = req.body
+    const { violationType } = req.body
+    const { givenName, familyName, phoneNumber } = req.session.personData
+    const { ppGivenName, ppFamilyName, email } = req.session.practitionerData
+
     try {
       const errors: GovukError[] = []
       const errorsByField: ErrorsByField = {}
