@@ -23,11 +23,13 @@ export default function practitionerDataRoutes(): Router {
 
   router.get('/practitioner-data', async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const sessionErrors = req.session.practitionerDataErrors
       res.render('pages/practitioner_data', {
-        data: {},
-        errors: [],
-        errorsByField: {},
+        errors: sessionErrors?.errors || [],
+        errorsByField: sessionErrors?.errorsByField || {},
+        data: sessionErrors?.data || {},
       })
+      delete req.session.practitionerDataErrors
     } catch (err) {
       next(err)
     }

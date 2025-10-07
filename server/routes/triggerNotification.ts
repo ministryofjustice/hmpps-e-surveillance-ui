@@ -32,11 +32,60 @@ export default function triggerNotificationRoutes({ auditService, eSurveillanceS
     const { ppGivenName, ppFamilyName, email } = req.session.practitionerData
 
     if (!givenName || !familyName || !phoneNumber) {
-      logger.error('Missing practitioner data')
+      logger.error('Missing person data')
+      const errors: GovukError[] = []
+      const errorsByField: ErrorsByField = {}
+
+      if (!givenName) {
+        errors.push({ text: 'Enter first name', href: '#first-name' })
+        errorsByField.givenName = { text: 'Enter first name' }
+      }
+
+      if (!familyName) {
+        errors.push({ text: 'Enter last name', href: '#family-name' })
+        errorsByField.familyName = { text: 'Enter last name' }
+      }
+
+      if (!phoneNumber) {
+        errors.push({ text: 'Enter mobile number', href: '#phoneNumber' })
+        errorsByField.phoneNumber = { text: 'Enter mobile number' }
+      }
+
+      req.session.personDataErrors = {
+        errors,
+        errorsByField,
+        data: { givenName, familyName, phoneNumber },
+      }
+
       return res.redirect('/person-data')
     }
+
     if (!ppGivenName || !ppFamilyName || !email) {
-      logger.error('Missing person data')
+      logger.error('Missing practitioner data')
+
+      const errors: GovukError[] = []
+      const errorsByField: ErrorsByField = {}
+
+      if (!ppGivenName || ppGivenName.trim() === '') {
+        errors.push({ text: 'Enter first name', href: '#first-name' })
+        errorsByField.ppGivenName = { text: 'Enter first name' }
+      }
+
+      if (!ppFamilyName || ppFamilyName.trim() === '') {
+        errors.push({ text: 'Enter last name', href: '#family-name' })
+        errorsByField.ppFamilyName = { text: 'Enter last name' }
+      }
+
+      if (!email || email.trim() === '') {
+        errors.push({ text: 'Enter email address', href: '#email' })
+        errorsByField.email = { text: 'Enter email address' }
+      }
+
+      req.session.practitionerDataErrors = {
+        errors,
+        errorsByField,
+        data: { ppGivenName, ppFamilyName, email },
+      }
       return res.redirect('/practitioner-data')
     }
 

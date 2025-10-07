@@ -23,11 +23,13 @@ export default function personDataRoutes(): Router {
 
   router.get('/person-data', async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const sessionErrors = req.session.personDataErrors
       res.render('pages/person_data', {
-        data: {},
-        errors: [],
-        errorsByField: {},
+        errors: sessionErrors?.errors || [],
+        errorsByField: sessionErrors?.errorsByField || {},
+        data: sessionErrors?.data || {},
       })
+      delete req.session.personDataErrors
     } catch (err) {
       next(err)
     }
