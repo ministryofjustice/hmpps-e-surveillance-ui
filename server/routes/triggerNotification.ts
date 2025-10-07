@@ -28,8 +28,8 @@ export default function triggerNotificationRoutes({ auditService, eSurveillanceS
 
   router.post('/trigger-notification', async (req: Request, res: Response, next: NextFunction) => {
     const { violationType } = req.body
-    const { givenName, familyName, phoneNumber } = req.session.personData
-    const { ppGivenName, ppFamilyName, email } = req.session.practitionerData
+    const { givenName, familyName, phoneNumber } = req.session.personData || {}
+    const { ppGivenName, ppFamilyName, email } = req.session.practitionerData || {}
 
     if (!givenName || !familyName || !phoneNumber) {
       logger.error('Missing person data')
@@ -37,7 +37,7 @@ export default function triggerNotificationRoutes({ auditService, eSurveillanceS
       const errorsByField: ErrorsByField = {}
 
       if (!givenName) {
-        errors.push({ text: 'Enter first name', href: '#first-name' })
+        errors.push({ text: 'Enter first name', href: '#given-name' })
         errorsByField.givenName = { text: 'Enter first name' }
       }
 
