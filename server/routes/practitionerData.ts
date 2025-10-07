@@ -1,33 +1,20 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import { EMAIL_REGEX } from '../utils/regex'
+import { practitionerFieldErrors } from '../utils/fieldConfigs'
+import { validateRequiredFields } from '../utils/validators'
 
 export default function practitionerDataRoutes(): Router {
-  interface PractitionerData {
-    ppGivenName: string
-    ppFamilyName: string
-    email: string
-  }
-
-  interface GovukError {
-    text: string
-    href: string
-  }
-
-  interface ErrorsByField {
-    [fieldName: string]: {
-      text: string
-    }
-  }
-
   const router = Router()
 
   router.get('/practitioner-data', async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const sessionErrors = req.session.practitionerDataErrors
       res.render('pages/practitioner_data', {
-        data: {},
-        errors: [],
-        errorsByField: {},
+        errors: sessionErrors?.errors || [],
+        errorsByField: sessionErrors?.errorsByField || {},
+        data: sessionErrors?.data || {},
       })
+      delete req.session.practitionerDataErrors
     } catch (err) {
       next(err)
     }
@@ -35,25 +22,14 @@ export default function practitionerDataRoutes(): Router {
 
   router.post('/practitioner-data', async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { ppGivenName, ppFamilyName, email } = req.body as PractitionerData
+      const { ppGivenName, ppFamilyName, email } = req.body
 
-      const errors: GovukError[] = []
-      const errorsByField: ErrorsByField = {}
+      const { errors, errorsByField, hasErrors } = validateRequiredFields(
+        { ppGivenName, ppFamilyName, email },
+        practitionerFieldErrors,
+      )
 
-      if (!ppGivenName || ppGivenName.trim() === '') {
-        errors.push({ text: 'Enter your name', href: '#first-name' })
-        errorsByField.ppGivenName = { text: 'Enter your name' }
-      }
-
-      if (!ppFamilyName || ppFamilyName.trim() === '') {
-        errors.push({ text: 'Enter your surname', href: '#family-name' })
-        errorsByField.ppFamilyName = { text: 'Enter your surname' }
-      }
-
-      if (!email || email.trim() === '') {
-        errors.push({ text: 'Enter your email address', href: '#email' })
-        errorsByField.email = { text: 'Enter your email address' }
-      } else if (!EMAIL_REGEX.test(email)) {
+      if (!hasErrors && email && !EMAIL_REGEX.test(email)) {
         errors.push({ text: 'Enter a valid email address', href: '#email' })
         errorsByField.email = { text: 'Enter a valid email address' }
       }
@@ -62,18 +38,11 @@ export default function practitionerDataRoutes(): Router {
         res.render('pages/practitioner_data', {
           errors,
           errorsByField,
-          data: {
-            ppGivenName,
-            ppFamilyName,
-            email,
-          },
+          data: { ppGivenName, ppFamilyName, email },
         })
       } else {
-        res.render('pages/set_localstorage', {
-          data: JSON.stringify({ ppGivenName, ppFamilyName, email }),
-          key: 'practitionerData',
-          redirectUrl: '/person-data',
-        })
+        req.session.practitionerData = { ppGivenName, ppFamilyName, email }
+        res.redirect('/person-data')
       }
     } catch (err) {
       next(err)

@@ -3,19 +3,10 @@ import logger from '../../logger'
 import { Services } from '../services'
 import { Page } from '../services/auditService'
 import { TriggerNotificationRequest } from '../data/eSurveillanceClient'
+import { personFieldErrors, practitionerFieldErrors, violationTypeFieldErrors } from '../utils/fieldConfigs'
+import { validateRequiredFields } from '../utils/validators'
 
 export default function triggerNotificationRoutes({ auditService, eSurveillanceService }: Services): Router {
-  interface GovukError {
-    text: string
-    href: string
-  }
-
-  interface ErrorsByField {
-    [fieldName: string]: {
-      text: string
-    }
-  }
-
   const router = Router()
 
   router.get('/trigger-notification', async (req: Request, res: Response, next: NextFunction) => {
@@ -27,15 +18,34 @@ export default function triggerNotificationRoutes({ auditService, eSurveillanceS
   })
 
   router.post('/trigger-notification', async (req: Request, res: Response, next: NextFunction) => {
-    const { violationType, givenName, familyName, ppGivenName, ppFamilyName, email, phoneNumber } = req.body
-    try {
-      const errors: GovukError[] = []
-      const errorsByField: ErrorsByField = {}
+    const { violationType } = req.body
+    const { givenName, familyName, phoneNumber } = req.session.personData || {}
+    const { ppGivenName, ppFamilyName, email } = req.session.practitionerData || {}
 
-      if (!violationType) {
-        errors.push({ text: 'Select an option', href: '#violationType' })
-        errorsByField.violationType = { text: 'Select an option' }
+    const practitionerValidation = validateRequiredFields({ ppGivenName, ppFamilyName, email }, practitionerFieldErrors)
+
+    if (practitionerValidation.hasErrors) {
+      req.session.practitionerDataErrors = {
+        errors: practitionerValidation.errors,
+        errorsByField: practitionerValidation.errorsByField,
+        data: { ppGivenName, ppFamilyName, email },
       }
+      return res.redirect('/practitioner-data')
+    }
+
+    const personValidation = validateRequiredFields({ givenName, familyName, phoneNumber }, personFieldErrors)
+
+    if (personValidation.hasErrors) {
+      req.session.personDataErrors = {
+        errors: personValidation.errors,
+        errorsByField: personValidation.errorsByField,
+        data: { givenName, familyName, phoneNumber },
+      }
+      return res.redirect('/person-data')
+    }
+
+    try {
+      const { errors, errorsByField, hasErrors } = validateRequiredFields({ violationType }, violationTypeFieldErrors)
 
       if (errors.length > 0) {
         res.render('pages/trigger_notification', {
