@@ -24,7 +24,7 @@
           title: "Notification sent",
           showTitleAsHeading: true,
           dismissible: false,
-          text: "We have sent an example violation notification to " + phoneNumber + " and " + email
+          text: "A notification has successfully been sent to " + email + " and " + phoneNumber
         }) }}
       {% endif %}
       {% if status == "failed" and phoneNumber and email %}
@@ -33,7 +33,7 @@
           title: "Notification has not been sent",
           showTitleAsHeading: true,
           dismissible: false,
-          text: "We were unable to send an example violation notification to " + phoneNumber + " and " + email + ". Try again later."
+          text: "We were unable to send a notification to " + phoneNumber + " and " + email + ". Please ask our team for support, or try again later."
         }) }}
       {% endif %}
       <form action="/trigger-notification" method="post" novalidate id="notificationForm">
@@ -41,13 +41,13 @@
           name: "violationType",
           fieldset: {
             legend: {
-              text: "Select violation notification",
+              text: "Trigger notification",
               isPageHeading: true,
               classes: "govuk-fieldset__legend--l"
             }
           },
           hint: {
-            text: "You can use this demo service to trigger notifications to your email address and mobile number that would happen during different real-life scenarios based on electronic monitoring considers for people on probation."
+            text: "Select a violation type below to trigger the email and phone notification. This reflects what will happen when a person on probation violates one of their probation conditions. The person on probation and their probation officer will be notified."
           },
           errorMessage: errorsByField.violationType,
           items: [

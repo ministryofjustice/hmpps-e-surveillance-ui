@@ -14,9 +14,8 @@
       <h1 class="govuk-heading-l">Person on probation information</h1>
 
       <p class="govuk-body govuk-hint">
-        This information will be used for demo purposes only to send a text message based on the violation notification triggered.
-        The message will be sent to the mobile number provided.
-        This information will be stored using local storage cookies on this device only.
+        This demo will enable you to trigger a violation notification via SMS to the phone number provided.
+        Your information will not be used for anything else.
       </p>
 
       {% if errors and errors.length %}
@@ -53,9 +52,6 @@
         {{ govukInput({
           label: {
             text: "Mobile number"
-          },
-          hint: {
-            text: "This will only be used to send you a text message of what a person on probation will receive when you trigger a demo"
           },
           id: "phoneNumber",
           name: "phoneNumber",
