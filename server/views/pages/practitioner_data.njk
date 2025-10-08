@@ -14,8 +14,8 @@
       <h1 class="govuk-heading-l">Probation practitioner notification</h1>
 
       <p class="govuk-body govuk-hint">
-        This information will be used for demo purposes only to send an email based on the violation notification triggered.
-        The email will be sent to the address provided. This information will be stored using local storage cookies on this device only.
+        This demo will enable you to trigger a violation notification to the email address provided.
+        Your information will not be used for anything else.
       </p>
 
       {% if errors and errors.length %}
@@ -52,9 +52,6 @@
         {{ govukInput({
           label: {
             text: "Email"
-          },
-          hint: {
-            text: "This will only be used to send you an email of what a probation practitioner will receive when you trigger a demo"
           },
           id: "email",
           name: "email",
