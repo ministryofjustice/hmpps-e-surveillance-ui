@@ -107,7 +107,7 @@ export default class ESurveillanceApiClient extends RestClient {
       },
       asSystem(),
     )
-    return new URL(response)
+    return new URL(response.url)
   }
 
   async triggerNotification(payload: TriggerNotificationRequest): Promise<void> {

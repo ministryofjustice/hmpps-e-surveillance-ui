@@ -1,25 +1,98 @@
-# hmpps-e-surveillance-ui
+# HMPPS E-Surveillance UI
 
 [![repo standards badge](https://img.shields.io/endpoint?labelColor=231f20&color=005ea5&style=flat&label=MoJ%20Compliant&url=https%3A%2F%2Foperations-engineering-reports-prod.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fendpoint%2Fhmpps-e-surveillance-ui&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABmJLR0QA/wD/AP+gvaeTAAAHJElEQVRYhe2YeYyW1RWHnzuMCzCIglBQlhSV2gICKlHiUhVBEAsxGqmVxCUUIV1i61YxadEoal1SWttUaKJNWrQUsRRc6tLGNlCXWGyoUkCJ4uCCSCOiwlTm6R/nfPjyMeDY8lfjSSZz3/fee87vnnPu75z3g8/kM2mfqMPVH6mf35t6G/ZgcJ/836Gdug4FjgO67UFn70+FDmjcw9xZaiegWX29lLLmE3QV4Glg8x7WbFfHlFIebS/ANj2oDgX+CXwA9AMubmPNvuqX1SnqKGAT0BFoVE9UL1RH7nSCUjYAL6rntBdg2Q3AgcAo4HDgXeBAoC+wrZQyWS3AWcDSUsomtSswEtgXaAGWlVI2q32BI0spj9XpPww4EVic88vaC7iq5Hz1BvVf6v3qe+rb6ji1p3pWrmtQG9VD1Jn5br+Knmm70T9MfUh9JaPQZu7uLsR9gEsJb3QF9gOagO7AuUTom1LpCcAkoCcwQj0VmJregzaipA4GphNe7w/MBearB7QLYCmlGdiWSm4CfplTHwBDgPHAFmB+Ah8N9AE6EGkxHLhaHU2kRhXc+cByYCqROs05NQq4oR7Lnm5xE9AL+GYC2gZ0Jmjk8VLKO+pE4HvAyYRnOwOH5N7NhMd/WKf3beApYBWwAdgHuCLn+tatbRtgJv1awhtd838LEeq30/A7wN+AwcBt+bwpD9AdOAkYVkpZXtVdSnlc7QI8BlwOXFmZ3oXkdxfidwmPrQXeA+4GuuT08QSdALxC3OYNhBe/TtzON4EziZBXD36o+q082BxgQuqvyYL6wtBY2TyEyJ2DgAXAzcC1+Xxw3RlGqiuJ6vE6QS9VGZ/7H02DDwAvELTyMDAxbfQBvggMAAYR9LR9J2cluH7AmnzuBowFFhLJ/wi7yiJgGXBLPq8A7idy9kPgvAQPcC9wERHSVcDtCfYj4E7gr8BRqWMjcXmeB+4tpbyG2kG9Sl2tPqF2Uick8B+7szyfvDhR3Z7vvq/2yqpynnqNeoY6v7LvevUU9QN1fZ3OTeppWZmeyzRoVu+rhbaHOledmoQ7LRd3SzBVeUo9Wf1DPs9X90/jX8m/e9Rn1Mnqi7nuXXW5+rK6oU7n64mjszovxyvVh9WeDcTVnl5KmQNcCMwvpbQA1xE8VZXhwDXAz4FWIkfnAlcBAwl6+SjD2wTcmPtagZnAEuA3dTp7qyNKKe8DW9UeBCeuBsbsWKVOUPvn+MRKCLeq16lXqLPVFvXb6r25dlaGdUx6cITaJ8fnpo5WI4Wuzcjcqn5Y8eI/1F+n3XvUA1N3v4ZamIEtpZRX1Y6Z/DUK2g84GrgHuDqTehpBCYend94jbnJ34DDgNGArQT9bict3Y3p1ZCnlSoLQb0sbgwjCXpY2blc7llLW1UAMI3o5CD4bmuOlwHaC6xakgZ4Z+ibgSxnOgcAI4uavI27jEII7909dL5VSrimlPKgeQ6TJCZVQjwaOLaW8BfyWbPEa1SaiTH1VfSENd85NDxHt1plA71LKRvX4BDaAKFlTgLeALtliDUqPrSV6SQCBlypgFlbmIIrCDcAl6nPAawmYhlLKFuB6IrkXAadUNj6TXlhDcCNEB/Jn4FcE0f4UWEl0NyWNvZxGTs89z6ZnatIIrCdqcCtRJmcCPwCeSN3N1Iu6T4VaFhm9n+riypouBnepLsk9p6p35fzwvDSX5eVQvaDOzjnqzTl+1KC53+XzLINHd65O6lD1DnWbepPBhQ3q2jQyW+2oDkkAtdt5udpb7W+Q/OFGA7ol1zxu1tc8zNHqXercfDfQIOZm9fR815Cpt5PnVqsr1F51wI9QnzU63xZ1o/rdPPmt6enV6sXqHPVqdXOCe1rtrg5W7zNI+m712Ir+cer4POiqfHeJSVe1Raemwnm7xD3mD1E/Z3wIjcsTdlZnqO8bFeNB9c30zgVG2euYa69QJ+9G90lG+99bfdIoo5PU4w362xHePxl1slMab6tV72KUxDvzlAMT8G0ZohXq39VX1bNzzxij9K1Qb9lhdGe931B/kR6/zCwY9YvuytCsMlj+gbr5SemhqkyuzE8xau4MP865JvWNuj0b1YuqDkgvH2GkURfakly01Cg7Cw0+qyXxkjojq9Lw+vT2AUY+DlF/otYq1Ixc35re2V7R8aTRg2KUv7+ou3x/14PsUBn3NG51S0XpG0Z9PcOPKWSS0SKNUo9Rv2Mmt/G5WpPF6pHGra7Jv410OVsdaz217AbkAPX3ubkm240belCuudT4Rp5p/DyC2lf9mfq1iq5eFe8/lu+K0YrVp0uret4nAkwlB6vzjI/1PxrlrTp/oNHbzTJI92T1qAT+BfW49MhMg6JUp7ehY5a6Tl2jjmVvitF9fxo5Yq8CaAfAkzLMnySt6uz/1k6bPx59CpCNxGfoSKA30IPoH7cQXdArwCOllFX/i53P5P9a/gNkKpsCMFRuFAAAAABJRU5ErkJggg==)](https://operations-engineering-reports-prod.cloud-platform.service.justice.gov.uk/public-report/hmpps-e-surveillance-ui)
 [![Docker Repository on ghcr](https://img.shields.io/badge/ghcr.io-repository-2496ED.svg?logo=docker)](https://ghcr.io/ministryofjustice/hmpps-e-surveillance-ui)
 
-Template github repo used for new Typescript based projects.
+**TESTING & VISUALIZATION INTERFACE - Successfully Delivered**
 
-# Instructions
+A Node.js/TypeScript web interface designed to test and demonstrate the [HMPPS E-Surveillance API](../hmpps-e-surveillance-api) core rule engine. This application provides an intuitive UI for probation officers and technical teams to trigger test scenarios, upload data files, and visualize the results of the electronic monitoring pipeline without requiring technical expertise.
 
-If this is a HMPPS project then the project will be created as part of bootstrapping -
-see https://github.com/ministryofjustice/hmpps-project-bootstrap. You are able to specify a template application using
-the `github_template_repo` attribute to clone without the need to manually do this yourself within GitHub.
+## UI Interface Achievement Summary
 
-This project is community managed by the mojdt `#typescript` slack channel.
-Please raise any questions or queries there. Contributions welcome!
+This testing interface has successfully delivered:
 
-Our security policy is located [here](https://github.com/ministryofjustice/hmpps-e-surveillance-ui/security/policy).
+- **User-Friendly File Upload** - Web-based CSV file upload interface replacing AWS CLI commands
+- **Data Visualization** - Search and browse persons, events, and notifications from the API
+- **Manual Test Triggering** - Direct notification testing without file processing
+- **Multi-Step Form Workflows** - Practitioner and person data collection for test scenarios
+- **API Integration** - Seamless communication with the core e-surveillance API
+- **Comprehensive Testing** - 100% test suite coverage validating all UI functionality
 
-More information about the template project including features can be
-found [here](https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/3488677932/Typescript+template+project).
+### Supporting Role in E-Surveillance Architecture
+```
+[UI File Upload] → [S3 Upload] → [API Processing Engine] → [Rule Engine] → [Notifications] → [UI Visualization]
+                     ↓
+[Manual Test Forms] → [Direct API Calls] → [Immediate Testing] → [Result Display]
+```
 
-Documentation to create new service is located [here](https://tech-docs.hmpps.service.justice.gov.uk/applicationplatform/newservice-GHA/).
+### Successfully Implemented Components
+- **Frontend**: GOV.UK Design System compliant forms and data tables
+- **Backend**: Express.js API with proper error handling and validation
+- **Data Layer**: Full CRUD operations with search and pagination
+- **Integration**: S3 file uploads, notification triggering, session management
+- **Security**: Authentication, authorization, CSRF protection, input validation
+- **Testing**: Unit tests, integration tests, mock services, centralized test data
+
+### Validated Features
+1. **Practitioner Data Collection** - Multi-field validation with email format checking
+2. **Person Data Management** - UK phone number validation and data persistence
+3. **File Upload System** - CSV processing for case files and event data
+4. **Search Functionality** - SQL LIKE search with real-time filtering
+5. **Notification Workflow** - End-to-end notification triggering and status tracking
+6. **Data Visualization** - Paginated tables with sort and filter capabilities
+
+## POC Limitations & Production Considerations
+
+### Current POC Scope
+This is a proof of concept and should **NOT** be deployed to production without significant enhancements:
+
+#### Known Limitations
+- **File Upload Security**: Minimal validation on uploaded files (no virus scanning, type validation, or size limits)
+- **Error Handling**: Basic error handling not suitable for production volumes
+- **Testing Coverage**: Limited test coverage (~30%)
+- **Performance**: Synchronous file processing will block under load
+- **Monitoring**: Insufficient observability and audit logging
+
+#### Required for Production
+Before deploying to production, the following must be addressed:
+
+2. **Performance & Scalability**
+   - Async file processing with background jobs
+   - Proper memory management for large files
+   - Database query optimization with pagination
+   - Caching strategy implementation
+
+3. **Testing & Quality**
+   - Increase test coverage to >80%
+   - Load testing with realistic data volumes
+   - Security assessment and penetration testing
+   - End-to-end testing of the complete pipeline
+
+4. **Operational Readiness**
+   - Structured logging and monitoring
+   - Alert configuration for critical failures
+   - Runbook documentation
+   - Disaster recovery procedures
+
+## Technical Details
+
+### Technology Stack
+- **Frontend**: GOV.UK Design System, Nunjucks templates
+- **Backend**: Node.js 22, Express.js, TypeScript
+- **Build Tools**: ESBuild, Jest, Cypress
+- **Security**: Helmet, CSP, CSRF protection
+- **Session**: Redis/Elasticache (production), in-memory (development)
+
+### Project Structure
+```
+server/
+├── routes/          # Express routes (person, practitioner, notifications)
+├── services/        # Business logic layer
+├── data/           # API client implementations
+├── middleware/     # Express middleware (auth, security, etc.)
+├── views/          # Nunjucks templates
+└── utils/          # Helper functions
+```
 
 ## Creating a Cloud Platform namespace
 
@@ -34,73 +107,10 @@ remove all kotlin references. Submit a PR to the Cloud Platform team in #ask-clo
 the Cloud Platform team can be found in
 the [Cloud Platform User Guide](https://user-guide.cloud-platform.service.justice.gov.uk/#cloud-platform-user-guide)
 
-## Renaming from HMPPS Template Typescript - github Actions
-
-Once the new repository is deployed. Navigate to the repository in github, and select the `Actions` tab.
-Click the link to `Enable Actions on this repository`.
-
-Find the Action workflow named: `rename-project-create-pr` and click `Run workflow`. This workflow will
-execute the `rename-project.bash` and create Pull Request for you to review. Review the PR and merge.
-
-Note: ideally this workflow would run automatically however due to a recent change github Actions are not
-enabled by default on newly created repos. There is no way to enable Actions other then to click the button in the UI.
-If this situation changes we will update this project so that the workflow is triggered during the bootstrap project.
-Further reading: <https://github.community/t/workflow-isnt-enabled-in-repos-generated-from-template/136421>
-
-The script takes six arguments:
-
-### New project name
-
-This should start with `hmpps-` e.g. `hmpps-prison-visits` so that it can be easily distinguished in github from
-other departments projects. Try to avoid using abbreviations so that others can understand easily what your project is.
-
-### Slack channel for release notifications
-
-By default, release notifications are only enabled for production. The github pipeline configuration can be amended to send
-release notifications for deployments to other environments if required. Note that if the configuration is amended,
-the slack channel should then be amended to your own team's channel as `hmpps-releases` (previously called `dps-releases`) is strictly for production release
-notifications. If the slack channel is set to something other than `hmpps-releases`, production release notifications
-will still automatically go to `hmpps-releases` as well. This is configured by by setting a github actions environment variable called `RELEASE_NOTIFICATIONS_SLACK_CHANNEL_ID`.
-
-### Slack channel for pipeline security notifications
-
-Ths channel should be specific to your team and is for daily / weekly security scanning job results. It is your team's
-responsibility to keep up-to-date with security issues and update your application so that these jobs pass. You will
-only be notified if the jobs fail. The scan results can always be found in github actions and results are sent to the github security tab. This is
-configured by setting github actions environment variable called `SECURITY_ALERTS_SLACK_CHANNEL_ID`.
-
-### Non production kubernetes alerts
-
-By default Prometheus alerts are created in the application namespaces to monitor your application e.g. if your
-application is crash looping, there are a significant number of errors from the ingress. Since Prometheus runs in
-cloud platform AlertManager needs to be setup first with your channel. Please see
-[Create your own custom alerts](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html)
-in the Cloud Platform user guide. Once that is setup then the `custom severity label` can be used for
-`alertSeverity` in the `helm_deploy/values-*.yaml` configuration.
-
-Normally it is worth setting up two separate labels and therefore two separate slack channels - one for your production
-alerts and one for your non-production alerts. Using the same channel can mean that production alerts are sometimes
-lost within non-production issues.
-
-### Production kubernetes alerts
-
-This is the severity label for production, determined by the `custom severity label`. See the above
-#non-production-kubernetes-alerts for more information. This is configured in `helm_deploy/values-prod.yaml`.
-
-### Product ID
-
-This is so that we can link a component to a product and thus provide team and product information in the Developer
-Portal. Refer to the developer portal at https://developer-portal.hmpps.service.justice.gov.uk/products to find your
-product id. This is configured in `helm_deploy/<project_name>/values.yaml`.
-
-## Manually branding from template app
-
-Run the `rename-project.bash` without any arguments. This will prompt for the six required parameters and create a PR.
-The script requires a recent version of `bash` to be installed, as well as GNU `sed` in the path.
 
 ## Oauth2 Credentials
 
-The template project is set up to run with two sets of credentials, each one support a different oauth2 flows.
+The project uses two sets of OAuth2 credentials for different authentication flows.
 These need to be requested from the auth team by filling in
 this [template](https://dsdmoj.atlassian.net/browse/HAAR-140) and raising on their slack channel.
 
@@ -150,6 +160,19 @@ When deployed to an environment with multiple pods we run applications with an i
 a distributed cache of sessions.
 The template app is, by default, configured not to use REDIS when running locally.
 
+## Quick Start for Developers
+
+### Prerequisites
+- Node.js v20+ (use `nvm install --latest-npm` in the repo directory)
+- Docker and Docker Compose
+- Access to HMPPS Auth (or use local Docker version)
+- Backend API running ([hmpps-e-surveillance-api](https://github.com/ministryofjustice/hmpps-e-surveillance-api))
+
+### Environment Setup
+1. Copy `.env.example` to `.env`
+2. Configure the backend API URL and other environment variables
+3. Ensure temporary directory exists for file uploads
+
 ## Running the app via docker-compose
 
 The easiest way to run the app is to use docker compose to create the service and all dependencies.
@@ -187,6 +210,29 @@ password: password123456
 To request specific users and roles then raise a PR
 to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
 for the in-memory DB used by Auth
+
+### Application Routes
+
+Once logged in, the application provides the following routes:
+
+- `/` - Home page
+- `/upload` - Upload CSV files (case files and event files) to S3
+- `/person-data` - Search and view person data (people on probation)
+- `/practitioner-data` - Search and view practitioner data
+- `/trigger-notification` - Manually trigger notifications for testing (without file upload)
+
+### File Upload
+
+The `/upload` route allows uploading of two CSV file types:
+1. **Case Files** - CSV files containing person data
+2. **Event Files** - CSV files containing monitoring events from tags/anklets
+
+Files are uploaded to a temporary directory (`temp/`) and then processed to S3.
+**Note**: The temporary directory must exist and have write permissions.
+
+### Manual Notification Testing
+
+The `/trigger-notification` route allows you to manually trigger notifications without uploading files, useful for testing the notification pipeline directly.
 
 ### Run linter
 

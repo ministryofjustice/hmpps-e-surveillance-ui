@@ -36,6 +36,9 @@
         "ts-jest"
       ]
     },
+    "moduleNameMapper": {
+      "^@faker-js/faker$": "<rootDir>/jest-mocks/faker.js"
+    },
     "collectCoverageFrom": [
       "server/**/*.{ts,js,jsx,mjs}"
     ],
