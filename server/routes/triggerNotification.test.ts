@@ -34,17 +34,14 @@ describe('Trigger Notification Routes', () => {
     it('should trigger notification successfully', async () => {
       mockESurveillanceService.triggerNotification.mockResolvedValue()
 
-      // Set up session data first
       const agent = request.agent(app)
 
-      // Set up practitioner data
       await agent.post('/practitioner-data').send({
         ppGivenName: 'Chris',
         ppFamilyName: 'Johnson',
         email: 'chris.johnson@justice.gov.uk',
       })
 
-      // Set up person data
       await agent.post('/person-data').send({
         givenName: 'John',
         familyName: 'Smith',
@@ -62,17 +59,14 @@ describe('Trigger Notification Routes', () => {
     it('should handle notification service errors', async () => {
       mockESurveillanceService.triggerNotification.mockRejectedValue(new Error('Service error'))
 
-      // Set up session data first
       const agent = request.agent(app)
 
-      // Set up practitioner data
       await agent.post('/practitioner-data').send({
         ppGivenName: 'Chris',
         ppFamilyName: 'Johnson',
         email: 'chris.johnson@justice.gov.uk',
       })
 
-      // Set up person data
       await agent.post('/person-data').send({
         givenName: 'John',
         familyName: 'Smith',

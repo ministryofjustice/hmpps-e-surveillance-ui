@@ -27,7 +27,6 @@ describe('ESurveillanceApiClient', () => {
 
     client = new ESurveillanceApiClient(mockAuthClient)
 
-    // Mock the get and post methods directly on the client
     jest.spyOn(client, 'get').mockImplementation(mockGet)
     jest.spyOn(client, 'post').mockImplementation(mockPost)
   })

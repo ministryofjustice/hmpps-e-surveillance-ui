@@ -26,10 +26,8 @@ beforeEach(() => {
     },
   })
 
-  // Mock fs.readFileSync for file upload tests - return actual CSV test data
   const mockFs = fs as jest.Mocked<typeof fs>
   mockFs.readFileSync = jest.fn().mockImplementation((filePath: string) => {
-    // Return appropriate test data based on file type
     if (typeof filePath === 'string' && filePath.includes('person')) {
       return Buffer.from(
         mockPersonsApiResponse.content
@@ -40,11 +38,9 @@ beforeEach(() => {
           .join('\n'),
       )
     }
-    // Default fallback
     return Buffer.from('test,data\nvalue1,value2')
   })
 
-  // Mock superagent
   const mockSuperagent = superagent as jest.Mocked<typeof superagent>
   mockSuperagent.put = jest.fn().mockReturnValue({
     set: jest.fn().mockReturnThis(),
@@ -53,7 +49,6 @@ beforeEach(() => {
 })
 
 describe('E-Surveillance Route Logic (Unit Tests)', () => {
-  // Import the actual route module to test the business logic
   const eSurvRoutes = require('./eSurveillance').default
 
   describe('GET /cases route handler', () => {
@@ -74,13 +69,11 @@ describe('E-Surveillance Route Logic (Unit Tests)', () => {
         logPageView: jest.fn().mockResolvedValue(undefined),
       }
 
-      // Test the route logic directly
       const router = eSurvRoutes({
         auditService: mockAuditService,
         eSurveillanceService: mockESurveillanceService,
       })
 
-      // Find and execute the cases route handler
       const routes = router.stack
       const casesRoute = routes.find((r: any) => r.route?.path === '/cases' && r.route?.methods?.get)
 
@@ -88,19 +81,16 @@ describe('E-Surveillance Route Logic (Unit Tests)', () => {
 
       await casesRoute.route.stack[0].handle(mockReq, mockRes, mockNext)
 
-      // Verify audit service was called correctly
       expect(mockAuditService.logPageView).toHaveBeenCalledWith('ESURVEILLANCE_PERSONS', {
         who: 'test-user',
         correlationId: 'test-correlation-id',
       })
 
-      // Verify eSurveillanceService was called with normalized query
       expect(mockESurveillanceService.getPersons).toHaveBeenCalledWith({
         search: 'test',
         page: '2',
       })
 
-      // Verify template rendering was called
       expect(mockRes.render).toHaveBeenCalledWith(
         'pages/tabular_data',
         expect.objectContaining({
@@ -166,7 +156,6 @@ describe('E-Surveillance Route Logic (Unit Tests)', () => {
         eSurveillanceService: mockESurveillanceService,
       })
 
-      // Find and execute the notifications route handler
       const routes = router.stack
       const notificationsRoute = routes.find((r: any) => r.route?.path === '/notifications' && r.route?.methods?.get)
 
@@ -174,18 +163,15 @@ describe('E-Surveillance Route Logic (Unit Tests)', () => {
 
       await notificationsRoute.route.stack[0].handle(mockReq, mockRes, mockNext)
 
-      // Verify audit service was called correctly
       expect(mockAuditService.logPageView).toHaveBeenCalledWith('ESURVEILLANCE_NOTIFICATIONS', {
         who: 'test-user',
         correlationId: 'test-correlation-id',
       })
 
-      // Verify eSurveillanceService was called with normalized query
       expect(mockESurveillanceService.getNotifications).toHaveBeenCalledWith({
         search: 'violation',
       })
 
-      // Verify template rendering was called
       expect(mockRes.render).toHaveBeenCalledWith(
         'pages/tabular_data',
         expect.objectContaining({

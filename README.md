@@ -1,266 +1,169 @@
 # HMPPS E-Surveillance UI
 
-[![repo standards badge](https://img.shields.io/endpoint?labelColor=231f20&color=005ea5&style=flat&label=MoJ%20Compliant&url=https%3A%2F%2Foperations-engineering-reports-prod.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fendpoint%2Fhmpps-e-surveillance-ui&logo=data:image/png;base64,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)](https://operations-engineering-reports-prod.cloud-platform.service.justice.gov.uk/public-report/hmpps-e-surveillance-ui)
+[![repo standards badge](https://img.shields.io/endpoint?labelColor=231f20&color=005ea5&style=flat&label=MoJ%20Compliant&url=https%3A%2F%2Foperations-engineering-reports-prod.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fendpoint%2Fhmpps-e-surveillance-ui&logo=data:image/png;base64,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)](https://operations-engineering-reports-prod.cloud-platform.service.justice.gov.uk/public-report/hmpps-e-surveillance-ui)
 [![Docker Repository on ghcr](https://img.shields.io/badge/ghcr.io-repository-2496ED.svg?logo=docker)](https://ghcr.io/ministryofjustice/hmpps-e-surveillance-ui)
 
-**TESTING & VISUALIZATION INTERFACE - Successfully Delivered**
+Web UI for testing the [HMPPS E-Surveillance API](https://github.com/ministryofjustice/hmpps-e-surveillance-api). Provides CSV file upload, data visualization, and manual notification testing.
 
-A Node.js/TypeScript web interface designed to test and demonstrate the [HMPPS E-Surveillance API](../hmpps-e-surveillance-api) core rule engine. This application provides an intuitive UI for probation officers and technical teams to trigger test scenarios, upload data files, and visualize the results of the electronic monitoring pipeline without requiring technical expertise.
+## Quick Overview
 
-## UI Interface Achievement Summary
+**Tech Stack:** Node.js 22, TypeScript, Express, Nunjucks, GOV.UK Design System, Jest
+**What it does:** Upload CSV files to S3, browse persons/notifications, trigger test notifications
+**Backend API:** [hmpps-e-surveillance-api](https://github.com/ministryofjustice/hmpps-e-surveillance-api)
+**Data Project:** [hmpps-e-surveillance-data](https://github.com/ministryofjustice/hmpps-e-surveillance-data)
+**Status:** POC - not production-ready (see limitations below)
 
-This testing interface has successfully delivered:
+## Project Structure
 
-- **User-Friendly File Upload** - Web-based CSV file upload interface replacing AWS CLI commands
-- **Data Visualization** - Search and browse persons, events, and notifications from the API
-- **Manual Test Triggering** - Direct notification testing without file processing
-- **Multi-Step Form Workflows** - Practitioner and person data collection for test scenarios
-- **API Integration** - Seamless communication with the core e-surveillance API
-- **Comprehensive Testing** - 100% test suite coverage validating all UI functionality
-
-### Supporting Role in E-Surveillance Architecture
-```
-[UI File Upload] → [S3 Upload] → [API Processing Engine] → [Rule Engine] → [Notifications] → [UI Visualization]
-                     ↓
-[Manual Test Forms] → [Direct API Calls] → [Immediate Testing] → [Result Display]
-```
-
-### Successfully Implemented Components
-- **Frontend**: GOV.UK Design System compliant forms and data tables
-- **Backend**: Express.js API with proper error handling and validation
-- **Data Layer**: Full CRUD operations with search and pagination
-- **Integration**: S3 file uploads, notification triggering, session management
-- **Security**: Authentication, authorization, CSRF protection, input validation
-- **Testing**: Unit tests, integration tests, mock services, centralized test data
-
-### Validated Features
-1. **Practitioner Data Collection** - Multi-field validation with email format checking
-2. **Person Data Management** - UK phone number validation and data persistence
-3. **File Upload System** - CSV processing for case files and event data
-4. **Search Functionality** - SQL LIKE search with real-time filtering
-5. **Notification Workflow** - End-to-end notification triggering and status tracking
-6. **Data Visualization** - Paginated tables with sort and filter capabilities
-
-## POC Limitations & Production Considerations
-
-### Current POC Scope
-This is a proof of concept and should **NOT** be deployed to production without significant enhancements:
-
-#### Known Limitations
-- **File Upload Security**: Minimal validation on uploaded files (no virus scanning, type validation, or size limits)
-- **Error Handling**: Basic error handling not suitable for production volumes
-- **Testing Coverage**: Limited test coverage (~30%)
-- **Performance**: Synchronous file processing will block under load
-- **Monitoring**: Insufficient observability and audit logging
-
-#### Required for Production
-Before deploying to production, the following must be addressed:
-
-2. **Performance & Scalability**
-   - Async file processing with background jobs
-   - Proper memory management for large files
-   - Database query optimization with pagination
-   - Caching strategy implementation
-
-3. **Testing & Quality**
-   - Increase test coverage to >80%
-   - Load testing with realistic data volumes
-   - Security assessment and penetration testing
-   - End-to-end testing of the complete pipeline
-
-4. **Operational Readiness**
-   - Structured logging and monitoring
-   - Alert configuration for critical failures
-   - Runbook documentation
-   - Disaster recovery procedures
-
-## Technical Details
-
-### Technology Stack
-- **Frontend**: GOV.UK Design System, Nunjucks templates
-- **Backend**: Node.js 22, Express.js, TypeScript
-- **Build Tools**: ESBuild, Jest, Cypress
-- **Security**: Helmet, CSP, CSRF protection
-- **Session**: Redis/Elasticache (production), in-memory (development)
-
-### Project Structure
 ```
 server/
-├── routes/          # Express routes (person, practitioner, notifications)
-├── services/        # Business logic layer
-├── data/           # API client implementations
-├── middleware/     # Express middleware (auth, security, etc.)
-├── views/          # Nunjucks templates
-└── utils/          # Helper functions
+├── routes/              # HTTP endpoints
+│   ├── index.ts         # Home page
+│   ├── eSurveillance.ts # File upload to S3
+│   ├── personData.ts    # Person search & display
+│   ├── practitionerData.ts # Practitioner forms
+│   └── triggerNotification.ts # Manual notification trigger
+├── services/            # Business logic
+│   └── eSurveillanceService.ts # API calls wrapper
+├── data/                # API clients
+│   └── eSurveillanceClient.ts # REST client for backend API
+├── testData/            # Centralized test mocks
+│   ├── mockPersonData.ts
+│   ├── mockNotificationData.ts
+│   ├── mockFormData.ts
+│   └── mockCsvData.ts
+├── views/               # Nunjucks templates (GOV.UK Design System)
+└── middleware/          # Auth, security, validation
 ```
 
-## Creating a Cloud Platform namespace
+## What's Implemented ✅
 
-When deploying to a new namespace, you may wish to use the
-[templates project namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-templates-dev)
-as the basis for your new namespace. This namespace contains both the kotlin and typescript template projects, which
-is the usual way that projects are setup. This namespace includes an AWS elasticache setup - which is required by this
-template project.
+- **File uploads:** CSV upload UI → S3 signed URLs → backend processing
+- **Search & display:** Person/notification data with pagination
+- **Forms:** Multi-step practitioner and person data collection
+- **Notifications:** Manual trigger for testing (bypasses file upload)
+- **Session management:** Redis (prod) / in-memory (dev)
+- **Security:** HMPPS Auth integration, CSRF protection, Helmet
+- **Testing:** Unit tests for routes, services, and API clients
 
-Copy this folder and update all the existing namespace references. If you only need the typescript configuration then
-remove all kotlin references. Submit a PR to the Cloud Platform team in #ask-cloud-platform. Further instructions from
-the Cloud Platform team can be found in
-the [Cloud Platform User Guide](https://user-guide.cloud-platform.service.justice.gov.uk/#cloud-platform-user-guide)
+## What's NOT Implemented / Needs Work ⚠️
 
+- **File validation:** No size limits, or type checking on uploads
+- **Error handling:** Basic try/catch, not production-grade
+- **Test coverage:** Currently ~50% - needs expanding
+- **Edge cases:** Limited validation for malformed data
 
-## Oauth2 Credentials
+## Testing
 
-The project uses two sets of OAuth2 credentials for different authentication flows.
-These need to be requested from the auth team by filling in
-this [template](https://dsdmoj.atlassian.net/browse/HAAR-140) and raising on their slack channel.
+```bash
+npm test                 # Run unit tests (Jest)
+npm run int-test         # Run integration tests (Cypress)
+npm run lint             # ESLint
+npm run typecheck        # TypeScript compiler check
+```
 
-### Auth Code flow
+**Test files location:** `server/**/*.test.ts`
+**Test data:** `server/testData/` - centralized mocks for all tests
+**Test utilities:** `server/routes/testutils/appSetup.ts` - shared Express setup
 
-These are used to allow authenticated users to access the application. After the user is redirected from auth back to
-the application, the typescript app will use the returned auth code to request a JWT token for that user containing the
-user's roles. The JWT token will be verified and then stored in the user's session.
-
-These credentials are configured using the following env variables:
-
-- AUTH_CODE_CLIENT_ID
-- AUTH_CODE_CLIENT_SECRET
-
-### Client Credentials flow
-
-These are used by the application to request tokens to make calls to APIs. These are system accounts that will have
-their own sets of roles.
-
-Most API calls that occur as part of the request/response cycle will be on behalf of a user.
-To make a call on behalf of a user, a username should be passed when requesting a system token. The username will then
-become part of the JWT and can be used downstream for auditing purposes.
-
-These tokens are cached until expiration.
-
-These credentials are configured using the following env variables:
-
-- CLIENT_CREDS_CLIENT_ID
-- CLIENT_CREDS_CLIENT_SECRET
-
-### Dependencies
-
-### HMPPS Auth
-
-To allow authenticated users to access your application you need to point it to a running instance of `hmpps-auth`.
-By default the application is configured to run against an instance running in docker that can be started
-via `docker-compose`.
-
-**NB:** It's common for developers to run against the instance of auth running in the development/T3 environment for
-local development.
-Most APIs don't have images with cached data that you can run with docker: setting up realistic stubbed data in sync
-across a variety of services is very difficult.
-
-### REDIS
-
-When deployed to an environment with multiple pods we run applications with an instance of REDIS/Elasticache to provide
-a distributed cache of sessions.
-The template app is, by default, configured not to use REDIS when running locally.
-
-## Quick Start for Developers
+## Development Setup
 
 ### Prerequisites
-- Node.js v20+ (use `nvm install --latest-npm` in the repo directory)
-- Docker and Docker Compose
-- Access to HMPPS Auth (or use local Docker version)
-- Backend API running ([hmpps-e-surveillance-api](https://github.com/ministryofjustice/hmpps-e-surveillance-api))
+- Node.js v20+ (use `nvm install --latest-npm`)
+- Docker & Docker Compose
+- Backend API running: [hmpps-e-surveillance-api](https://github.com/ministryofjustice/hmpps-e-surveillance-api)
 
-### Environment Setup
-1. Copy `.env.example` to `.env`
-2. Configure the backend API URL and other environment variables
-3. Ensure temporary directory exists for file uploads
+### Local Development
 
-## Running the app via docker-compose
+```bash
+# 1. Start dependencies (Redis, Auth)
+docker compose up --scale=app=0
 
-The easiest way to run the app is to use docker compose to create the service and all dependencies.
+# 2. Copy environment file
+cp .env.example .env
 
-`docker compose pull`
+# 3. Install dependencies
+npm install
 
-`docker compose up`
+# 4. Start dev server (with auto-reload)
+npm run start:dev
+```
 
-### Running the app for development
+**Default login:** username: `AUTH_USER`, password: `password123456`
 
-To start the main services excluding the example typescript template app:
+### Environment Variables
 
-`docker compose up --scale=app=0`
+Key variables in `.env`:
+- `API_CLIENT_ID` / `API_CLIENT_SECRET` - HMPPS Auth credentials
+- `HMPPS_AUTH_URL` - Auth service URL
+- `E_SURVEILLANCE_API_URL` - Backend API endpoint
+- `REDIS_ENABLED` - Use Redis for sessions (false for local dev)
 
-Create an environment file by copying `.env.example` -> `.env`
-Environment variables set in here will be available when running `start:dev`
+## Key Routes & Features
 
-Install dependencies using `npm install`, ensuring you are using `node v20`
+| Route | What it does | Files |
+|-------|-------------|-------|
+| `/` | Home page | `server/routes/index.ts`, `server/views/pages/index.njk` |
+| `/upload` | CSV file upload to S3 | `server/routes/eSurveillance.ts` |
+| `/person-data` | Search & display persons | `server/routes/personData.ts` |
+| `/practitioner-data` | Practitioner forms | `server/routes/practitionerData.ts` |
+| `/trigger-notification` | Manual notification trigger | `server/routes/triggerNotification.ts` |
 
-Note: Using `nvm` (or [fnm](https://github.com/Schniz/fnm)), run `nvm install --latest-npm` within the repository folder
-to use the correct version of node, and the latest version of npm. This matches the `engines` config in `package.json`
-and the github pipeline build config.
+### How File Upload Works
 
-And then, to build the assets and start the app with esbuild:
+1. User uploads CSV via `/upload` form
+2. `eSurveillanceService.getUploadUrl()` gets S3 signed URL from backend API
+3. File uploaded directly to S3 using signed URL
+4. Backend API processes file from S3 asynchronously
 
-`npm run start:dev`
+### API Client Architecture
 
-### Logging in with a test user
+- `eSurveillanceClient.ts` - Extends `RestClient` from `@ministryofjustice/hmpps-rest-client`
+- `eSurveillanceService.ts` - Business logic wrapper around client
+- Routes inject service via dependency injection (see `server/index.ts`)
 
-Once the application is running you should then be able to login with:
+## Authentication & Authorization
 
-username: AUTH_USER
-password: password123456
+### OAuth2 Setup
 
-To request specific users and roles then raise a PR
-to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
-for the in-memory DB used by Auth
+Request credentials via [HAAR-140 template](https://dsdmoj.atlassian.net/browse/HAAR-140):
 
-### Application Routes
+**Auth Code Flow** (user login):
+- `AUTH_CODE_CLIENT_ID` / `AUTH_CODE_CLIENT_SECRET`
+- Returns JWT with user roles, stored in session
 
-Once logged in, the application provides the following routes:
+**Client Credentials Flow** (API calls):
+- `CLIENT_CREDS_CLIENT_ID` / `CLIENT_CREDS_CLIENT_SECRET`
+- System token for backend requests, cached until expiry
 
-- `/` - Home page
-- `/upload` - Upload CSV files (case files and event files) to S3
-- `/person-data` - Search and view person data (people on probation)
-- `/practitioner-data` - Search and view practitioner data
-- `/trigger-notification` - Manually trigger notifications for testing (without file upload)
+### Dependencies
+- **HMPPS Auth:** User authentication (Docker for local dev, or use T3/dev environment)
+- **Redis/Elasticache:** Session storage in production (disabled locally)
 
-### File Upload
+## Common Tasks
 
-The `/upload` route allows uploading of two CSV file types:
-1. **Case Files** - CSV files containing person data
-2. **Event Files** - CSV files containing monitoring events from tags/anklets
+### Adding a new route
+1. Create `server/routes/myRoute.ts`
+2. Add tests in `server/routes/myRoute.test.ts`
+3. Register in `server/index.ts` (see `setUpWebRoutes()`)
+4. Create view in `server/views/pages/myRoute.njk`
 
-Files are uploaded to a temporary directory (`temp/`) and then processed to S3.
-**Note**: The temporary directory must exist and have write permissions.
-
-### Manual Notification Testing
-
-The `/trigger-notification` route allows you to manually trigger notifications without uploading files, useful for testing the notification pipeline directly.
-
-### Run linter
-
-* `npm run lint` runs `eslint`.
-* `npm run typecheck` runs the TypeScript compiler `tsc`.
-
-### Run unit tests
-
-`npm run test`
+### Adding test mocks
+1. Add mock data to `server/testData/mockMyData.ts`
+2. Export from `server/testData/index.ts`
+3. Import in tests: `import { mockMyData } from '../testData'`
 
 ### Running integration tests
+```bash
+docker compose -f docker-compose-test.yml up  # Start wiremock
+npm run start-feature                         # Start app in test mode
+npm run int-test                              # Headless Cypress tests
+npm run int-test-ui                           # Cypress UI
+```
 
-For local running, start a wiremock instance by:
+### Deployment
+Use [templates namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-templates-dev) as starting point (includes Redis). See [Cloud Platform User Guide](https://user-guide.cloud-platform.service.justice.gov.uk/).
 
-`docker compose -f docker-compose-test.yml up`
+---
 
-Then run the server in test mode by:
-
-`npm run start-feature` (or `npm run start-feature:dev` to run with auto-restart on changes)
-
-And then either, run tests in headless mode with:
-
-`npm run int-test`
-
-Or run tests with the cypress UI:
-
-`npm run int-test-ui`
-
-## Change log
-
-A changelog for the service is available [here](./CHANGELOG.md)
+**Changelog:** [CHANGELOG.md](./CHANGELOG.md)
