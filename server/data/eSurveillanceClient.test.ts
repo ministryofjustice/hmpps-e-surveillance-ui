@@ -83,7 +83,7 @@ describe('ESurveillanceApiClient', () => {
 
   describe('getUploadUrl', () => {
     it('should get upload URL', async () => {
-      const mockResponse = { url: 'https://s3-signed-url.amazonaws.com' }
+      const mockResponse = 'https://s3-signed-url.amazonaws.com'
       mockGet.mockResolvedValue(mockResponse)
 
       const result = await client.getUploadUrl('test.csv')

@@ -100,14 +100,14 @@ export default class ESurveillanceApiClient extends RestClient {
   }
 
   async getUploadUrl(filename: string): Promise<URL> {
-    const response = await this.get<{ url: string }>(
+    const response = await this.get<string>(
       {
         path: '/get-upload-url',
         query: { filename },
       },
       asSystem(),
     )
-    return new URL(response.url)
+    return new URL(response)
   }
 
   async triggerNotification(payload: TriggerNotificationRequest): Promise<void> {
