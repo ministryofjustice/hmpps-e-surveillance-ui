@@ -51,6 +51,7 @@
       <h1>File upload</h1>
 
       <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
         <div>
           {{ govukFileUpload({

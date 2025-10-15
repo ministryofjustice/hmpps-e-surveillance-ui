@@ -1,5 +1,5 @@
 export default [
   {
-    ignores: ['dist/**', 'server/middleware/setUpCsrf.ts'],
+    ignores: ['dist/**', 'coverage/**'],
   },
 ]

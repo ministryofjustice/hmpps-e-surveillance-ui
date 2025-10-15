@@ -37,6 +37,8 @@
         }) }}
       {% endif %}
       <form action="/trigger-notification" method="post" novalidate id="notificationForm">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
         {{ govukRadios({
           name: "violationType",
           fieldset: {
