@@ -100,7 +100,7 @@ export default class ESurveillanceApiClient extends RestClient {
   }
 
   async getUploadUrl(filename: string): Promise<URL> {
-    const response = await this.get<{ url: string }>(
+    const response = await this.get<string>(
       {
         path: '/get-upload-url',
         query: { filename },

@@ -1,5 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import { Router } from 'express'
+import createError from 'http-errors'
 import multer from 'multer'
 import superagent from 'superagent'
 import fs from 'fs'
@@ -63,6 +64,11 @@ export default function eSurvRoutes({ auditService, eSurveillanceService }: Serv
       { name: 'eventFile', maxCount: 1 },
     ]),
     async (req, res, next) => {
+      // Validate CSRF token after multer has parsed the body
+      if (process.env.NODE_ENV !== 'test' && !res.locals.csrfValidate(req)) {
+        return next(createError(403, 'Invalid CSRF token'))
+      }
+
       try {
         const now = new Date()
         const timestamp = now.toISOString().replace(/[:.]/g, '-')
