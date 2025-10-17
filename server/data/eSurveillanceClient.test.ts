@@ -108,7 +108,7 @@ describe('ESurveillanceApiClient', () => {
         familyName: 'Smith',
         violationType: 'CURFEW_VIOLATION',
         phoneNumber: '07123456789',
-        email: 'chris.johnson@justice.gov.uk',
+        email: 'name.surename@example.com',
       }
 
       await client.triggerNotification(request)

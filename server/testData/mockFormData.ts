@@ -1,28 +1,28 @@
 export const validPractitionerData = {
-  ppGivenName: 'Chris',
-  ppFamilyName: 'Johnson',
-  email: 'chris.johnson@justice.gov.uk',
+  ppGivenName: 'Test',
+  ppFamilyName: 'User',
+  email: 'test.user@example.com',
 }
 
 export const invalidPractitionerData = {
   missingGivenName: {
     ppGivenName: '',
-    ppFamilyName: 'Johnson',
-    email: 'chris.johnson@justice.gov.uk',
+    ppFamilyName: 'User',
+    email: 'test.user@example.com',
   },
   missingFamilyName: {
-    ppGivenName: 'Chris',
+    ppGivenName: 'Test',
     ppFamilyName: '',
-    email: 'chris.johnson@justice.gov.uk',
+    email: 'test.user@example.com',
   },
   missingEmail: {
-    ppGivenName: 'Chris',
-    ppFamilyName: 'Johnson',
+    ppGivenName: 'Test',
+    ppFamilyName: 'User',
     email: '',
   },
   invalidEmail: {
-    ppGivenName: 'Chris',
-    ppFamilyName: 'Johnson',
+    ppGivenName: 'Test',
+    ppFamilyName: 'User',
     email: 'invalid-email',
   },
   allFieldsMissing: {
@@ -33,30 +33,30 @@ export const invalidPractitionerData = {
 }
 
 export const validPersonData = {
-  givenName: 'John',
-  familyName: 'Smith',
-  phoneNumber: '07123456789',
+  givenName: 'Sample',
+  familyName: 'Person',
+  phoneNumber: '07000000000',
 }
 
 export const invalidPersonData = {
   missingGivenName: {
     givenName: '',
-    familyName: 'Smith',
-    phoneNumber: '07123456789',
+    familyName: 'Person',
+    phoneNumber: '07000000000',
   },
   missingFamilyName: {
-    givenName: 'John',
+    givenName: 'Sample',
     familyName: '',
-    phoneNumber: '07123456789',
+    phoneNumber: '07000000000',
   },
   missingPhoneNumber: {
-    givenName: 'John',
-    familyName: 'Smith',
+    givenName: 'Sample',
+    familyName: 'Person',
     phoneNumber: '',
   },
   invalidPhoneNumber: {
-    givenName: 'John',
-    familyName: 'Smith',
+    givenName: 'Sample',
+    familyName: 'Person',
     phoneNumber: 'invalid-phone',
   },
   allFieldsMissing: {
@@ -70,7 +70,7 @@ export const validNotificationRequest = {
   personId: 'PER001',
   type: 'CURFEW_VIOLATION',
   templateId: 'template-123',
-  phoneNumber: '07123456789',
+  phoneNumber: '07000000000',
   practitioner: validPractitionerData,
   person: validPersonData,
 }
@@ -79,12 +79,12 @@ export const specialCharacterData = {
   practitioner: {
     ppGivenName: "Mary-Jane O'Connor",
     ppFamilyName: 'Smith-Wilson',
-    email: 'mary.jane@justice.gov.uk',
+    email: 'mary.jane@example.com',
   },
   person: {
     givenName: "John-Paul O'Connor",
     familyName: 'Smith-Jones',
-    phoneNumber: '07123456789',
+    phoneNumber: '07000000001',
   },
 }
 
@@ -92,35 +92,35 @@ export const unicodeData = {
   practitioner: {
     ppGivenName: 'José',
     ppFamilyName: 'García-López',
-    email: 'jose.garcia@justice.gov.uk',
+    email: 'jose.garcia@example.com',
   },
   person: {
     givenName: 'José',
     familyName: 'García-López',
-    phoneNumber: '07123456789',
+    phoneNumber: '07000000002',
   },
 }
 
 export const governmentEmails = [
-  'chris@justice.gov.uk',
-  'probation@hmcts.gov.uk',
-  'admin@homeoffice.gov.uk',
-  'user@noms.gov.uk',
+  'chris.johnson@example.com',
+  'probation.team@example.com',
+  'admin.office@example.com',
+  'user.account@example.com',
 ]
 
 export const phoneNumberTestCases = [
-  { phone: '07123456789', valid: true, description: 'valid UK mobile' },
-  { phone: '+447123456789', valid: true, description: 'valid UK mobile with country code' },
-  { phone: '447123456789', valid: true, description: 'valid UK mobile without +' },
-  { phone: '01234567890', valid: false, description: 'invalid - not mobile format' },
+  { phone: '07000000000', valid: true, description: 'valid UK mobile' },
+  { phone: '+447000000000', valid: true, description: 'valid UK mobile with country code' },
+  { phone: '447000000000', valid: true, description: 'valid UK mobile without +' },
+  { phone: '01000000000', valid: false, description: 'invalid - not mobile format' },
   { phone: '12345', valid: false, description: 'invalid - too short' },
-  { phone: '071234567890123', valid: false, description: 'invalid - too long' },
+  { phone: '070000000000000', valid: false, description: 'invalid - too long' },
   { phone: 'not-a-number', valid: false, description: 'invalid - not numeric' },
-  { phone: '08123456789', valid: false, description: 'invalid - wrong prefix' },
+  { phone: '08000000000', valid: false, description: 'invalid - wrong prefix' },
 ]
 
 export const emailTestCases = [
-  { email: 'chris.johnson@justice.gov.uk', valid: true, description: 'valid gov.uk email' },
+  { email: 'name.surname@example.com', valid: true, description: 'valid example email' },
   { email: 'test@example.com', valid: true, description: 'valid standard email' },
   { email: 'user@domain.co.uk', valid: true, description: 'valid .co.uk email' },
   { email: 'invalid-email', valid: false, description: 'missing @ and domain' },
